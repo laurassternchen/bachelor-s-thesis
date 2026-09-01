@@ -112,11 +112,7 @@ def generate_launch_description():
         output='screen',
         parameters=[
             {
-                'yaml_filename': os.path.join(
-                    package_dir,
-                    'maps',
-                    'keepout_mask.yaml'
-                ),
+                'yaml_filename': keepout_mask,
                 'use_sim_time': True,
             }
         ],
