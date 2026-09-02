@@ -123,9 +123,10 @@ def generate_launch_description():
             ('/map_metadata', '/speed_mask_metadata'),
         ],
     )
-
-    speed_costmap_filter_info_server = Node(
-        package='nav2_map_server',
+    
+#Relative speed limit
+    '''speed_costmap_filter_info_server = Node(
+         package='nav2_map_server',
         executable='costmap_filter_info_server',
         name='speed_costmap_filter_info_server',
         output='screen',
@@ -136,10 +137,28 @@ def generate_launch_description():
                 'filter_info_topic': '/speed_filter_info',
                 'mask_topic': '/speed_mask',
                 'base': 0.0,
-                'multiplier': 0.5,
+                'multiplier': 0.5, # 50% of normal speed of turtlebot
+            }
+        ],
+    )'''
+    
+    speed_costmap_filter_info_server = Node(
+         package='nav2_map_server',
+        executable='costmap_filter_info_server',
+        name='speed_costmap_filter_info_server',
+        output='screen',
+        parameters=[
+            {
+                'use_sim_time': True,
+                'type': 2,
+                'filter_info_topic': '/speed_filter_info',
+                'mask_topic': '/speed_mask',
+                'base': 0.0,
+                'multiplier': 0.002,
             }
         ],
     )
+
 
     speed_lifecycle_manager = Node(
         package='nav2_lifecycle_manager',
