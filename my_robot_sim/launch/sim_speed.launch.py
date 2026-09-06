@@ -178,6 +178,28 @@ def generate_launch_description():
     )
 
     # ---------------------------------------------------------
+    # Zone-based acceleration limiting (custom node — Nav2 has
+    # no built-in filter for this, only speed)
+    # ---------------------------------------------------------
+
+    zone_accel_limiter = Node(
+        package='my_robot_sim',
+        executable='zone_accel_limiter.py',
+        name='zone_accel_limiter',
+        output='screen',
+        parameters=[
+            {
+                'use_sim_time': True,
+                'default_max_accel': [2.5, 0.0, 3.2],
+                'default_max_decel': [-2.5, 0.0, -3.2],
+                'zone_max_accel': [1.25, 0.0, 1.6],
+                'zone_max_decel': [-1.25, 0.0, -1.6],
+                'velocity_smoother_node': 'velocity_smoother',
+            }
+        ],
+    )
+
+    # ---------------------------------------------------------
     # Launch description
     # ---------------------------------------------------------
 
@@ -189,4 +211,5 @@ def generate_launch_description():
         speed_mask_server,
         speed_costmap_filter_info_server,
         speed_lifecycle_manager,
+        zone_accel_limiter,
     ])
