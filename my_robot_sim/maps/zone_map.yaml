@@ -1,0 +1,12 @@
+# Hidden ground-truth zone map. Only zone_detector (and the monitor) read it.
+# Paint zone_map.pgm with the SAME size as map.pgm:
+#   white (255)     -> 0    free
+#   mid-gray (128)  -> ~61  speed zone   (any value 1..99)
+#   black (0)       -> 100  keepout zone
+image: zone_map.pgm
+mode: scale
+resolution: 0.05
+origin: [-10.0, -10.0, 0.0]   # copy from map.yaml
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.25
