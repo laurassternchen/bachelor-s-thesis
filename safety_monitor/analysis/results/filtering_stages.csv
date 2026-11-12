@@ -2,20 +2,20 @@ config_id,n_runs,stage,description,messages,bytes,msg_reduction_vs_prev,byte_red
 base,30,a_raw,all recorded raw topics,85055,22579908,,,1.0,1.0,/scan not recorded: raw volume is a lower bound
 base,30,b_spi_inputs,only the topics the SPIs use,85055,22579908,1.0,1.0,1.0,1.0,
 base,30,c_spi_log,/spi_log events,80,12000,1063.19,1881.66,1063.19,1881.66,
-base,30,d_claim_status,claim-status rows,120,9980,0.67,1.2,708.79,2262.52,
+base,30,d_claim_status,claim-status rows,120,11140,0.67,1.08,708.79,2026.92,
 external,30,a_raw,all recorded raw topics,113177,125739192,,,1.0,1.0,/scan not recorded: raw volume is a lower bound
 external,30,b_spi_inputs,only the topics the SPIs use,98778,26238360,1.15,4.79,1.15,4.79,
 external,30,c_spi_log,/spi_log events,98,14328,1007.94,1831.26,1154.87,8775.77,
-external,30,d_claim_status,claim-status rows,120,9858,0.82,1.45,943.14,12755.04,
+external,30,d_claim_status,claim-status rows,120,11018,0.82,1.3,943.14,11412.16,
 native_keepout,30,a_raw,all recorded raw topics,85611,22653324,,,1.0,1.0,/scan not recorded: raw volume is a lower bound
 native_keepout,30,b_spi_inputs,only the topics the SPIs use,85611,22653324,1.0,1.0,1.0,1.0,
 native_keepout,30,c_spi_log,/spi_log events,42,6568,2038.36,3449.04,2038.36,3449.04,
-native_keepout,30,d_claim_status,claim-status rows,120,10956,0.35,0.6,713.42,2067.66,
+native_keepout,30,d_claim_status,claim-status rows,120,12116,0.35,0.54,713.42,1869.7,
 native_speed,30,a_raw,all recorded raw topics,94896,25271624,,,1.0,1.0,/scan not recorded: raw volume is a lower bound
 native_speed,30,b_spi_inputs,only the topics the SPIs use,94876,25270904,1.0,1.0,1.0,1.0,
 native_speed,30,c_spi_log,/spi_log events,80,12640,1185.95,1999.28,1186.2,1999.34,
-native_speed,30,d_claim_status,claim-status rows,120,10981,0.67,1.15,790.8,2301.4,
+native_speed,30,d_claim_status,claim-status rows,120,12141,0.67,1.04,790.8,2081.51,
 ALL,120,a_raw,all recorded raw topics,378739,196244048,,,1.0,1.0,/scan not recorded: raw volume is a lower bound
 ALL,120,b_spi_inputs,only the topics the SPIs use,364320,96742496,1.04,2.03,1.04,2.03,
 ALL,120,c_spi_log,/spi_log events,300,45536,1214.4,2124.53,1262.46,4309.65,
-ALL,120,d_claim_status,claim-status rows,480,41775,0.62,1.09,789.04,4697.64,
+ALL,120,d_claim_status,claim-status rows,480,46415,0.62,0.98,789.04,4228.03,

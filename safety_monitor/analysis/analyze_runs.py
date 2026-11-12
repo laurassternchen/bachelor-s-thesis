@@ -36,6 +36,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import numpy
 import yaml
 from rosbags.highlevel import AnyReader
 
@@ -47,6 +48,14 @@ from safety_monitor.safety_case import SafetyCase, assess_run, summarize, to_dot
 from safety_monitor.zone_mask import SPEED, ZoneMask  # noqa: E402
 
 SPI_IDS = ('SPI-1', 'SPI-2', 'SPI-3', 'SPI-4')
+
+# Every circuit is goal1 -> goal2 -> goal3, reset to (0, 0) only before goal1;
+# each later leg starts where the previous one ended. Outputs use leg names.
+LEG_NAMES = {
+    'goal1': 'goal1_zone_entry',  # (0, 0) -> (0, 4.2): ends inside the speed zone
+    'goal2': 'goal2_zone_exit',   # (0, 4.2) -> (-6, -3): leaves the speed zone, passes the keepout corner
+    'goal3': 'goal3_keepout',     # (-6, -3) -> (-9, 0): around the keepout zone
+}
 
 # Filtering stages (RQ3). (a) = every recorded topic except the monitor's own
 # outputs; (b) = only what the SPIs read. The action status topic is a hidden
@@ -194,11 +203,13 @@ def zone_speed_stats(samples, zone_mask):
             burst.append(v)
     if not speeds:
         return {'speed_zone_sample_count': 0, 'speed_zone_median_mps': None,
-                'speed_zone_mean_mps': None, 'speed_zone_max_mps': None,
+                'speed_zone_mean_mps': None, 'speed_zone_p95_mps': None,
+                'speed_zone_max_mps': None,
                 'speed_zone_entry_peak_mps': None}
     return {'speed_zone_sample_count': len(speeds),
             'speed_zone_median_mps': round(statistics.median(speeds), 4),
             'speed_zone_mean_mps': round(statistics.fmean(speeds), 4),
+            'speed_zone_p95_mps': round(float(numpy.percentile(speeds, 95)), 4),
             'speed_zone_max_mps': round(max(speeds), 4),
             'speed_zone_entry_peak_mps': round(max(burst), 4) if burst else None}
 
@@ -266,7 +277,8 @@ def analyze_run(config_id, run_id, run_dir, ctx):
     exposure = compute_exposure(xy, ctx['zone_mask'], ctx['case'].evidence)
 
     base = {
-        'config_id': config_id, 'run_id': run_id, 'nav_goal': outcome.get('goal'),
+        'config_id': config_id, 'run_id': run_id,
+        'nav_goal': LEG_NAMES.get(outcome.get('goal'), outcome.get('goal')),
         # False: send_goal.py's reset retries were exhausted -- uncontrolled
         # start, exclude when comparing configs. None: reset_pose was false.
         'pose_reset_ok': outcome.get('pose_reset_ok'),
@@ -322,7 +334,8 @@ def analyze_run(config_id, run_id, run_dir, ctx):
         row[f'{key}_event_distance_m'] = r(sum(e['distance_m'] for e in evs), 3)
         row[f'{key}_exposure_time_s'] = r(exp['time_s'], 3)
         row[f'{key}_exposure_distance_m'] = r(exp['distance_m'], 3)
-    row.update(zone_speed_stats(win_samples, ctx['zone_mask']))
+    zone_speed = zone_speed_stats(win_samples, ctx['zone_mask'])
+    row.update(zone_speed)
     timing = summary.get('processing_time_ms') or {}
     for check in ('tick', 'spi4_callback'):
         stats = timing.get(check) or {}
@@ -344,6 +357,7 @@ def analyze_run(config_id, run_id, run_dir, ctx):
         'summary_counts': summary.get('spi_event_counts'),
         'bag_spi_log_count': len(raw_events), 'summary_mismatch': summary_mismatch,
         'claims': {c['goal_id']: c for c in claim_rows},
+        'zone_speed': zone_speed,
         'overspeed': {tol: overspeed_exposure(win_samples, ctx['zone_mask'],
                                               ctx['case'].threshold('SPI-1') + tol)
                       for tol in ctx['spi1_tolerances']},
@@ -431,6 +445,16 @@ def spi1_overspeed_rows(details, threshold, tolerances):
         peaks = [max(e['peak_value'] for e in d['events_by_spi']['SPI-1'])
                  for d in runs if d['events_by_spi'].get('SPI-1')]
         for tol in tolerances:
+            zone_t_mean, zone_t_std = mean_std([d['exposure']['SPI-1']['time_s'] for d in in_zone])
+            zone_d_mean, zone_d_std = mean_std([d['exposure']['SPI-1']['distance_m'] for d in in_zone])
+            speed_cols = {}
+            for stat in ('mean', 'median', 'p95'):
+                m, sd = mean_std([d['zone_speed'][f'speed_zone_{stat}_mps'] for d in in_zone
+                                  if d['zone_speed'][f'speed_zone_{stat}_mps'] is not None])
+                speed_cols[f'speed_in_zone_{stat}_mps_mean'] = m
+                speed_cols[f'speed_in_zone_{stat}_mps_std'] = sd
+            frac_mean, frac_std = mean_std([d['overspeed'][tol][0] / d['exposure']['SPI-1']['time_s']
+                                            for d in in_zone])
             dur_mean, dur_std = mean_std([d['overspeed'][tol][0] for d in in_zone])
             dist_mean, dist_std = mean_std([d['overspeed'][tol][1] for d in in_zone])
             out.append({
@@ -440,6 +464,11 @@ def spi1_overspeed_rows(details, threshold, tolerances):
                 'n_runs_overspeed': sum(1 for d in in_zone if d['overspeed'][tol][0] > 0.0),
                 'overspeed_duration_s_mean': dur_mean, 'overspeed_duration_s_std': dur_std,
                 'overspeed_distance_m_mean': dist_mean, 'overspeed_distance_m_std': dist_std,
+                'time_in_speed_zone_s_mean': zone_t_mean, 'time_in_speed_zone_s_std': zone_t_std,
+                'distance_in_speed_zone_m_mean': zone_d_mean,
+                'distance_in_speed_zone_m_std': zone_d_std,
+                **speed_cols,
+                'overspeed_fraction_mean': frac_mean, 'overspeed_fraction_std': frac_std,
                 'n_runs_with_spi1_event': len(peaks),
                 'peak_speed_max_mps': r(max(peaks), 4) if peaks else None,
                 'peak_speed_median_mps': median_or_none(peaks),

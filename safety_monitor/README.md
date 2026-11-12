@@ -109,11 +109,20 @@ whichever `run_id` the monitor was last given. Use
 `ros2 param set /safety_monitor_node run_id <name>` yourself beforehand if
 you want a manual goal's summary kept separate from the next one.
 
-`goal` is `goal1` ((0, 4.2), speed zone), `goal2` ((-6, -3), free space,
-no zone crossed) or `goal3` ((-9, 0), keepout zone -- the straight path
-from the start pose runs directly through it, x in roughly [-7.5, -4.0]
-at y=0). `send_goal.py` publishes `/initialpose` for the known start pose
-before sending the goal, and writes
+`goal` is one leg of the circuit. The analysis outputs use the leg names
+(`nav_goal` column):
+
+| Goal | Leg name | Starts at | Ends at |
+|---|---|---|---|
+| goal1 | `goal1_zone_entry` | (0, 0), after the reset | (0, 4.2), inside the speed zone |
+| goal2 | `goal2_zone_exit` | end of goal1 (≈ 0, 4.2) | (-6, -3), outside the speed zone (passes the keepout corner, see below) |
+| goal3 | `goal3_keepout` | end of goal2 (≈ -6, -3) | (-9, 0), on the far side of the keepout zone |
+
+Only goal1 is reset: with `reset_pose:=true`, `send_goal.py` teleports the
+robot and publishes `/initialpose` at (0, 0) before sending the goal (checked
+in all 40 goal1 bags: AMCL pose within 0.036 m of (0, 0) afterwards). goal2 and
+goal3 never publish `/initialpose`; their bags start within 0.1 m of where the
+previous leg ended, with no pose jump. `send_goal.py` also writes
 `bags/base/run1/outcome.json` with the accept/reject result and, once
 available, the terminal status -- this is the only place a *rejected* goal
 is recorded, since it never appears on the action status topic the monitor
@@ -216,7 +225,7 @@ Reads every `bags/<config_id>/<run_id>/` directory and writes, next to
 | `claim_summary.csv` | per config (all nav goals, and per nav goal): how many runs support / challenge / give no evidence for each goal |
 | `filtering_stages.csv` | messages and bytes at (a) all recorded raw topics, (b) the topics the SPIs use, (c) `/spi_log` events, (d) claim-status rows, with reduction factors. `/scan` was not recorded in the existing bags (missing from `record_run.sh`'s topic list, since fixed), so stage (a) is a lower bound (`note` column) |
 | `efficiency.csv` | monitor processing time per check cycle (mean, p95, max) per config; from `monitor_summary.json` of live runs, or written by `replay_bags.py` (`source` column) |
-| `spi1_overspeed.csv` | per config, nav goal and SPI-1 tolerance: time (s) and distance (m) driven in a speed zone above limit + tolerance, mean ± std over runs that entered a speed zone (main SPI-1 comparison; from `/odom`, independent of the monitor's event fragmentation); peak speed as secondary columns |
+| `spi1_overspeed.csv` | per config, leg and SPI-1 tolerance, mean ± std over runs that entered a speed zone: time (s) and distance (m) driven above limit + tolerance (main SPI-1 comparison), time and distance in the speed zone, speed in the zone (per-run mean / median / p95), `overspeed_fraction` = overspeed time ÷ time in zone. All from `/odom`, independent of the monitor's event fragmentation; peak speed as secondary columns |
 | `tolerance_sensitivity.csv` | claim-status counts per config / nav goal / goal with the SPI-1 tolerance at each value of `--spi1-tolerances` (default 0 and 0.02 m/s) |
 | `g3_challenged.csv`, `g4_challenged.csv` | one row per event challenging G3 / G4: nav goal, duration, penetration depth (G3) or clearance shortfall (G4), map-frame position at the peak; `within_grid_resolution` flags SPI-2 penetrations ≤ the map resolution (0.05 m). Status is not changed by the flag |
 | `source_check.csv` | per run: where its events and window came from (own bag `/spi_log` vs `monitor_summary.json`), event counts from both |
