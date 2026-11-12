@@ -19,6 +19,7 @@ install(
     scripts/drc/dynamic_risk_constrainer.py
     scripts/drc/pose_adapter.py
     scripts/drc/zone_detector.py
+    scripts/drc/experiment_runner.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

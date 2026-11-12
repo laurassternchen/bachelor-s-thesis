@@ -35,6 +35,8 @@ class DynamicRiskConstrainer(Node):
         self.w_max = p('zone_max_angular_vel', 2.0).value
         self.accel = p('zone_max_accel', [1.25, 1.6]).value    # [linear, angular]
         self.decel = p('zone_max_decel', [1.25, 1.6]).value    # magnitudes
+        self.default_accel = p('default_max_accel', [2.5, 3.2]).value
+        self.default_decel = p('default_max_decel', [2.5, 3.2]).value
         self.pose_timeout = p('pose_timeout', 0.5).value
 
         self.grid = None
@@ -95,6 +97,14 @@ class DynamicRiskConstrainer(Node):
                                 self.last[0], self.accel[0], self.decel[0], dt)
             w = self.rate_limit(clamp(w, -self.w_max, self.w_max),
                                 self.last[1], self.accel[1], self.decel[1], dt)
+        else:
+            # Always rate-limited, even outside a zone -- otherwise velocity
+            # can jump instantly to full speed the instant the robot leaves
+            # a zone (no cap here, since v_max/w_max are zone-specific).
+            v = self.rate_limit(v, self.last[0],
+                                self.default_accel[0], self.default_decel[0], dt)
+            w = self.rate_limit(w, self.last[1],
+                                self.default_accel[1], self.default_decel[1], dt)
         self.last = [v, w]              # tracked outside the zone too: no jump at entry
         twist.linear.x, twist.angular.z = v, w
         self.pub.publish(msg)

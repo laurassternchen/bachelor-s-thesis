@@ -83,8 +83,23 @@ class ZoneDetector(Node):
         msg.data = np.where(self.known, self.truth, 0).astype(np.int8).flatten().tolist()
         self.grid_pub.publish(msg)
 
+    @staticmethod
+    def _boundary_only(mask):
+        """Keeps only cells of `mask` that have a non-mask 4-neighbor.
+
+        The interior of a known keepout region doesn't need its own obstacle
+        point -- the boundary alone already blocks the costmap from letting
+        the planner through, and publishing every interior cell inflates
+        /zone_obstacles for no safety benefit.
+        """
+        padded = np.pad(mask, 1, mode='constant', constant_values=False)
+        interior = (padded[1:-1, 1:-1] & padded[:-2, 1:-1] & padded[2:, 1:-1] &
+                    padded[1:-1, :-2] & padded[1:-1, 2:])
+        return mask & ~interior
+
     def publish_cloud(self):
-        rows, cols = np.nonzero(self.known & (self.truth >= self.keepout_min))
+        keepout_known = self.known & (self.truth >= self.keepout_min)
+        rows, cols = np.nonzero(self._boundary_only(keepout_known))
         pts = np.column_stack((self.cx[rows, cols], self.cy[rows, cols],
                                np.full(rows.size, self.point_height))).astype(np.float32)
         # Stamp with the pose time so TF for this stamp is guaranteed to exist.

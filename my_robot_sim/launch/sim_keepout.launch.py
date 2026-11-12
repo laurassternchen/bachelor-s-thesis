@@ -41,7 +41,7 @@ def generate_launch_description():
     params_file = os.path.join(
         package_dir,
         'config',
-        'nav2_params.yaml'
+        'nav2_params_keepout.yaml'
     )
 
     # ---------------------------------------------------------
@@ -51,7 +51,7 @@ def generate_launch_description():
     keepout_mask = os.path.join(
         package_dir,
         'maps',
-        'keepout_mask.yaml'
+        'keepout_mask_derived.yaml'
     )
 
     # ---------------------------------------------------------
@@ -80,6 +80,12 @@ def generate_launch_description():
         description='Initial orientation of the robot'
     )
 
+    declare_headless = DeclareLaunchArgument('headless', default_value='False')
+    declare_use_rviz = DeclareLaunchArgument('use_rviz', default_value='True')
+
+    headless = LaunchConfiguration('headless')
+    use_rviz = LaunchConfiguration('use_rviz')
+
     # ---------------------------------------------------------
     # Nav2 + Gazebo + TurtleBot3
     # ---------------------------------------------------------
@@ -99,8 +105,8 @@ def generate_launch_description():
             'x_pose': x_pose,
             'y_pose': y_pose,
             'yaw': yaw,
-            'headless': 'False',
-            'use_rviz': 'True',
+            'headless': headless,
+            'use_rviz': use_rviz,
             'use_simulator': 'True',
             'use_robot_state_pub': 'True',
         }.items()
@@ -164,6 +170,8 @@ def generate_launch_description():
         declare_x_pose,
         declare_y_pose,
         declare_yaw,
+        declare_headless,
+        declare_use_rviz,
         nav2_simulation,
         keepout_mask_server,
         costmap_filter_info_server,

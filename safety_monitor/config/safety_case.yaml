@@ -1,0 +1,80 @@
+# Machine-readable safety argument (RQ3).
+#
+# Single source of truth for the SPI -> goal mapping and every SPI
+# threshold. Read by:
+#   - safety_monitor_node: online thresholds; the goal id becomes the
+#     claim_id on every SafetyEvent it publishes
+#   - analysis/analyze_runs.py: exposure, claim status, GSN export
+#
+# Evidence fields:
+#   goal_id       goal this SPI is evidence for (null = informational only)
+#   threshold     online trigger threshold, in `unit`
+#   tolerance     offline only: an event counts against its goal only if it
+#                 exceeds the threshold by more than this (0 = every event)
+#   exposure      what counts as "the robot had a chance to violate":
+#                   speed_zone    inside a speed zone
+#                   near_keepout  within `within_m` of a keepout cell (incl. inside)
+#                   whole_run     the whole active-goal window
+#   min_exposure  exposure needed before 0 events counts as support;
+#                 every listed key must be met (time_s and/or distance_m)
+
+safety_case:
+  id: SC-ZONES
+  title: Zone-related safety of the TurtleBot3 navigation stack
+
+  goals:
+    G1:
+      text: The robot navigates acceptably safely with respect to the restricted zones of the test environment.
+      hazard_id: H0
+      hazard: Unsafe interaction with a restricted zone.
+      supported_by: [G2, G3, G4]
+    G2:
+      text: Zone speed limits are respected.
+      hazard_id: H1
+      hazard: The robot exceeds the permitted speed inside a speed zone.
+    G3:
+      text: Keepout zones are never entered.
+      hazard_id: H2
+      hazard: The robot enters a keepout zone.
+    G4:
+      text: The robot keeps a safety margin to keepout zones.
+      hazard_id: H3
+      hazard: The robot passes too close to a keepout zone (near-miss).
+
+  evidence:
+    SPI-1:
+      goal_id: G2
+      description: Speed above the zone limit while inside a speed zone.
+      threshold: 0.2
+      unit: m/s
+      tolerance: 0.0
+      exposure: {kind: speed_zone}
+      min_exposure: {distance_m: 0.5}
+    SPI-2:
+      goal_id: G3
+      description: Robot position inside a keepout cell (magnitude = penetration depth).
+      threshold: 0.0
+      unit: m
+      tolerance: 0.0
+      exposure: {kind: near_keepout, within_m: 1.0}
+      min_exposure: {distance_m: 0.5}
+    SPI-3:
+      goal_id: G4
+      description: Keepout margin (map-based distance to the nearest keepout cell) below the threshold (outside keepout only).
+      threshold: 0.3
+      unit: m
+      tolerance: 0.0
+      # Opportunity to violate = time spent within 1.5 m of a keepout cell.
+      # Must exceed inflation_radius (0.7 m) + robot_radius (0.22 m), so every
+      # run whose planner had to work around a keepout zone is counted.
+      # Map-based distance, as SPI-3 itself measures it.
+      exposure: {kind: near_keepout, within_m: 1.5}
+      min_exposure: {time_s: 1.0}
+    SPI-4:
+      goal_id: null
+      description: Informational -- |cmd_vel_smoothed - cmd_vel| above the noise floor (intervention).
+      threshold: 0.02
+      unit: m/s
+      tolerance: 0.0
+      exposure: {kind: whole_run}
+      min_exposure: {distance_m: 1.0}

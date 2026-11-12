@@ -1,0 +1,481 @@
+config_id,run_id,nav_goal,pose_reset_ok,window_source,goal_id,status,spi_ids,supported_by,event_count,peak_value,event_duration_s,exposure_time_s,exposure_distance_m,duration_per_exposure,events_per_m
+base,run1,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run1,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.95,4.692,1.3375,0.6287,0.7477
+base,run1,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+base,run1,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+base,run10,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run10,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.95,4.76,1.372,0.6197,0.7289
+base,run10,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+base,run10,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+base,run11,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run11,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.55,7.99,2.0106,0.4443,0.4974
+base,run11,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.95,11.866,4.828,0.3329,0.2071
+base,run11,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.55,14.688,5.7631,0.1055,0.347
+base,run12,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run12,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+base,run12,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.25,1.2,11.9,3.7908,0.1008,0.2638
+base,run12,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,16.082,4.7087,0.0902,0.4247
+base,run13,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run13,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.05,4.726,1.4118,0.6454,0.7083
+base,run13,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+base,run13,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+base,run14,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run14,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.65,8.024,2.1009,0.4549,0.476
+base,run14,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.9,11.39,4.879,0.3424,0.205
+base,run14,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,14.96,5.8102,0.0969,0.3442
+base,run15,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run15,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+base,run15,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.1,10.812,3.761,0.1017,0.2659
+base,run15,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,15.912,4.6745,0.0911,0.4279
+base,run16,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run16,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.9,4.794,1.3462,0.6049,0.7428
+base,run16,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+base,run16,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+base,run17,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run17,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.55,7.922,2.0323,0.4481,0.4921
+base,run17,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.95,12.478,5.1012,0.3166,0.196
+base,run17,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,14.62,5.9343,0.0992,0.337
+base,run18,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run18,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+base,run18,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.05,7.378,3.2659,0.1423,0.3062
+base,run18,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.3,16.15,4.7579,0.0805,0.4204
+base,run19,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run19,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.0,4.726,1.2987,0.6348,0.77
+base,run19,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+base,run19,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+base,run2,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run2,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.2,7.956,1.9307,0.4022,0.5179
+base,run2,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.7,4.2,10.608,4.5838,0.3959,0.2182
+base,run2,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.95,14.382,5.6694,0.1356,0.3528
+base,run20,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run20,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.4,8.058,1.9645,0.4219,0.509
+base,run20,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.8,10.846,4.9691,0.3504,0.2012
+base,run20,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.6,14.994,6.0172,0.1067,0.3324
+base,run21,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run21,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+base,run21,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.15,0.9,7.378,3.2937,0.122,0.3036
+base,run21,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,16.184,4.7291,0.0896,0.4229
+base,run22,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run22,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.05,4.794,1.3602,0.6362,0.7352
+base,run22,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+base,run22,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+base,run23,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run23,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.55,8.432,2.0189,0.421,0.4953
+base,run23,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,4.05,11.628,4.9183,0.3483,0.2033
+base,run23,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,15.028,5.878,0.0965,0.3403
+base,run24,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run24,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+base,run24,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.15,0.95,7.378,3.3357,0.1288,0.2998
+base,run24,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,15.878,4.6774,0.0913,0.4276
+base,run25,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run25,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.9,4.658,1.3994,0.6226,0.7146
+base,run25,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+base,run25,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+base,run26,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run26,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.4,7.888,1.951,0.431,0.5126
+base,run26,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,4.05,11.526,4.8606,0.3514,0.2057
+base,run26,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.4,14.994,5.7989,0.0934,0.3449
+base,run27,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run27,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+base,run27,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.0,9.52,3.5855,0.105,0.2789
+base,run27,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.5,15.606,4.6751,0.0961,0.4278
+base,run28,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run28,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.05,4.658,1.3662,0.6548,0.732
+base,run28,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+base,run28,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+base,run29,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run29,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.5,8.296,2.0823,0.4219,0.4802
+base,run29,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,4.0,11.084,4.7697,0.3609,0.2097
+base,run29,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.6,14.96,5.7847,0.107,0.3457
+base,run3,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run3,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+base,run3,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.25,1.25,11.662,3.8217,0.1072,0.2617
+base,run3,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.5,15.3,4.6551,0.098,0.4296
+base,run30,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run30,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+base,run30,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.2,9.52,3.552,0.1261,0.2815
+base,run30,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.4,15.776,4.6283,0.0887,0.4321
+base,run4,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run4,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.85,4.862,1.3074,0.5862,0.7649
+base,run4,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+base,run4,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+base,run5,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run5,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.4,7.752,1.9812,0.4386,0.5048
+base,run5,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.95,11.628,4.8026,0.3397,0.2082
+base,run5,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.5,15.028,5.8123,0.0998,0.3441
+base,run6,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run6,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+base,run6,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.25,1.15,11.9,3.798,0.0966,0.2633
+base,run6,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.4,15.674,4.6374,0.0893,0.4313
+base,run7,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run7,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.0,4.896,1.4807,0.6127,0.6754
+base,run7,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+base,run7,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+base,run8,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run8,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.55,7.99,1.9616,0.4443,0.5098
+base,run8,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.7,4.15,12.002,4.8458,0.3458,0.2064
+base,run8,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,14.994,5.7796,0.0967,0.346
+base,run9,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+base,run9,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+base,run9,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.15,0.75,10.54,3.7145,0.0712,0.2692
+base,run9,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.5,16.66,4.708,0.09,0.4248
+external,run1,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run1,goal1,True,monitor_summary,G2,challenged,SPI-1,,2,0.46,4.45,6.494,1.2558,0.6852,1.5926
+external,run1,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+external,run1,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+external,run10,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run10,goal1,True,monitor_summary,G2,challenged,SPI-1,,6,0.46,1.75,6.494,1.2998,0.2695,4.6162
+external,run10,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+external,run10,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+external,run11,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run11,goal2,,monitor_summary,G2,challenged,SPI-1,,4,0.2,1.25,9.52,1.4893,0.1313,2.6858
+external,run11,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,8.534,3.4027,0.0,0.0
+external,run11,goal2,,monitor_summary,G4,supported,SPI-3,,0,,0,12.512,4.5605,0.0,0.0
+external,run12,goal3,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run12,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+external,run12,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,6.766,2.8774,0.0,0.0
+external,run12,goal3,,monitor_summary,G4,supported,SPI-3,,0,,0,18.598,5.2718,0.0,0.0
+external,run13,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run13,goal1,True,monitor_summary,G2,challenged,SPI-1,,2,0.46,4.45,6.494,1.3123,0.6852,1.524
+external,run13,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+external,run13,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+external,run14,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run14,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.2,5.9,10.234,1.5803,0.5765,0.6328
+external,run14,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,8.5,3.3918,0.0,0.0
+external,run14,goal2,,monitor_summary,G4,supported,SPI-3,,0,,0,12.546,4.5434,0.0,0.0
+external,run15,goal3,,bag_motion,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run15,goal3,,bag_motion,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+external,run15,goal3,,bag_motion,G3,supported,SPI-2,,0,,0,8.262,2.9499,0.0,0.0
+external,run15,goal3,,bag_motion,G4,supported,SPI-3,,0,,0,18.7,5.2792,0.0,0.0
+external,run16,goal1,True,bag_motion,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run16,goal1,True,bag_motion,G2,challenged,SPI-1,,1,0.46,4.95,6.392,1.2688,0.7744,0.7881
+external,run16,goal1,True,bag_motion,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+external,run16,goal1,True,bag_motion,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+external,run17,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run17,goal2,,monitor_summary,G2,challenged,SPI-1,,2,0.2,5.3,9.588,1.5675,0.5528,1.2759
+external,run17,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,7.106,3.13,0.0,0.0
+external,run17,goal2,,monitor_summary,G4,supported,SPI-3,,0,,0,12.614,4.6713,0.0,0.0
+external,run18,goal3,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run18,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+external,run18,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,8.534,3.1382,0.0,0.0
+external,run18,goal3,,monitor_summary,G4,supported,SPI-3,,0,,0,18.326,5.2081,0.0,0.0
+external,run19,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run19,goal1,True,monitor_summary,G2,challenged,SPI-1,,2,0.46,4.75,6.698,1.3423,0.7092,1.4899
+external,run19,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+external,run19,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+external,run2,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run2,goal2,,monitor_summary,G2,challenged,SPI-1,,2,0.2,6.3,11.458,1.9099,0.5498,1.0472
+external,run2,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,8.738,3.7977,0.0,0.0
+external,run2,goal2,,monitor_summary,G4,supported,SPI-3,,0,,0,16.082,6.1879,0.0,0.0
+external,run20,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run20,goal2,,monitor_summary,G2,challenged,SPI-1,,2,0.2,5.3,9.894,1.5689,0.5357,1.2748
+external,run20,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,8.126,3.501,0.0,0.0
+external,run20,goal2,,monitor_summary,G4,supported,SPI-3,,0,,0,12.478,4.7228,0.0,0.0
+external,run21,goal3,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run21,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+external,run21,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,6.63,2.7678,0.0,0.0
+external,run21,goal3,,monitor_summary,G4,supported,SPI-3,,0,,0,18.326,5.1703,0.0,0.0
+external,run22,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run22,goal1,True,monitor_summary,G2,challenged,SPI-1,,3,0.46,3.6,6.494,1.2705,0.5544,2.3612
+external,run22,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+external,run22,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+external,run23,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run23,goal2,,monitor_summary,G2,challenged,SPI-1,,4,0.2,4.15,9.52,1.538,0.4359,2.6007
+external,run23,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,8.466,3.4176,0.0,0.0
+external,run23,goal2,,monitor_summary,G4,supported,SPI-3,,0,,0,12.614,4.5498,0.0,0.0
+external,run24,goal3,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run24,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+external,run24,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,8.976,3.2345,0.0,0.0
+external,run24,goal3,,monitor_summary,G4,supported,SPI-3,,0,,0,18.258,5.3017,0.0,0.0
+external,run25,goal1,True,bag_motion,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run25,goal1,True,bag_motion,G2,challenged,SPI-1,,5,0.46,2.85,6.732,1.2693,0.4234,3.9391
+external,run25,goal1,True,bag_motion,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+external,run25,goal1,True,bag_motion,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+external,run26,goal2,,bag_motion,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run26,goal2,,bag_motion,G2,challenged,SPI-1,,4,0.2,4.2,9.418,1.4864,0.446,2.6911
+external,run26,goal2,,bag_motion,G3,supported,SPI-2,,0,,0,7.99,3.3763,0.0,0.0
+external,run26,goal2,,bag_motion,G4,supported,SPI-3,,0,,0,12.614,4.5255,0.0,0.0
+external,run27,goal3,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run27,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+external,run27,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,6.868,2.909,0.0,0.0
+external,run27,goal3,,monitor_summary,G4,supported,SPI-3,,0,,0,18.054,5.248,0.0,0.0
+external,run28,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run28,goal1,True,monitor_summary,G2,challenged,SPI-1,,3,0.46,4.5,7.004,1.422,0.6425,2.1097
+external,run28,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+external,run28,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+external,run29,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run29,goal2,,monitor_summary,G2,challenged,SPI-1,,5,0.2,3.95,10.064,1.6455,0.3925,3.0386
+external,run29,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,7.412,3.3186,0.0,0.0
+external,run29,goal2,,monitor_summary,G4,supported,SPI-3,,0,,0,12.512,4.6345,0.0,0.0
+external,run3,goal3,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run3,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+external,run3,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,8.024,2.9628,0.0,0.0
+external,run3,goal3,,monitor_summary,G4,supported,SPI-3,,0,,0,18.428,5.2366,0.0,0.0
+external,run30,goal3,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run30,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+external,run30,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,9.01,3.2495,0.0,0.0
+external,run30,goal3,,monitor_summary,G4,supported,SPI-3,,0,,0,18.496,5.2954,0.0,0.0
+external,run4,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run4,goal1,True,monitor_summary,G2,challenged,SPI-1,,7,0.46,2.0,6.63,1.2701,0.3017,5.5116
+external,run4,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+external,run4,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+external,run5,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run5,goal2,,monitor_summary,G2,challenged,SPI-1,,6,0.2,1.45,9.554,1.5875,0.1518,3.7796
+external,run5,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,7.208,3.2216,0.0,0.0
+external,run5,goal2,,monitor_summary,G4,supported,SPI-3,,0,,0,12.376,4.5183,0.0,0.0
+external,run6,goal3,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run6,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+external,run6,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,6.902,2.8512,0.0,0.0
+external,run6,goal3,,monitor_summary,G4,supported,SPI-3,,0,,0,18.462,5.3129,0.0,0.0
+external,run7,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run7,goal1,True,monitor_summary,G2,challenged,SPI-1,,6,0.46,1.65,6.63,1.2914,0.2489,4.6461
+external,run7,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+external,run7,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+external,run8,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+external,run8,goal2,,monitor_summary,G2,challenged,SPI-1,,9,0.2,0.8,9.792,1.5385,0.0817,5.8497
+external,run8,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,8.262,3.3818,0.0,0.0
+external,run8,goal2,,monitor_summary,G4,supported,SPI-3,,0,,0,12.614,4.5505,0.0,0.0
+external,run9,goal3,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run9,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+external,run9,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,8.466,3.1148,0.0,0.0
+external,run9,goal3,,monitor_summary,G4,supported,SPI-3,,0,,0,18.224,5.2787,0.0,0.0
+native_keepout,run1,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run1,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.95,4.76,1.314,0.6197,0.7611
+native_keepout,run1,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_keepout,run1,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_keepout,run10,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run10,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.0,4.726,1.393,0.6348,0.7179
+native_keepout,run10,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_keepout,run10,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_keepout,run11,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run11,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.15,7.276,1.7856,0.4329,0.56
+native_keepout,run11,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.05,0.0,9.384,3.9818,0.0,0.2511
+native_keepout,run11,goal2,,monitor_summary,G4,challenged,SPI-3,,1,0.25,2.2,14.212,5.109,0.1548,0.1957
+native_keepout,run12,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run12,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_keepout,run12,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,7.378,3.2019,0.0,0.0
+native_keepout,run12,goal3,,monitor_summary,G4,challenged,SPI-3,,1,0.2293,1.5,15.776,4.6765,0.0951,0.2138
+native_keepout,run13,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run13,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.95,4.794,1.4265,0.6154,0.701
+native_keepout,run13,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_keepout,run13,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_keepout,run14,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run14,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.3,7.446,1.8167,0.4432,0.5504
+native_keepout,run14,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,8.772,3.8735,0.0,0.0
+native_keepout,run14,goal2,,monitor_summary,G4,challenged,SPI-3,,1,0.25,1.7,13.396,5.0388,0.1269,0.1985
+native_keepout,run15,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run15,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_keepout,run15,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,7.174,3.1694,0.0,0.0
+native_keepout,run15,goal3,,monitor_summary,G4,challenged,SPI-3,,1,0.2293,1.3,16.558,4.7465,0.0785,0.2107
+native_keepout,run16,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run16,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.05,4.726,1.3619,0.6454,0.7343
+native_keepout,run16,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_keepout,run16,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_keepout,run17,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run17,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.2,6.358,1.6666,0.5033,0.6
+native_keepout,run17,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,9.078,4.0082,0.0,0.0
+native_keepout,run17,goal2,,monitor_summary,G4,challenged,SPI-3,,1,0.25,1.65,13.464,5.1224,0.1225,0.1952
+native_keepout,run18,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run18,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_keepout,run18,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.05,0.1,9.554,3.4989,0.0105,0.2858
+native_keepout,run18,goal3,,monitor_summary,G4,challenged,SPI-3,,1,0.25,1.45,16.286,4.7237,0.089,0.2117
+native_keepout,run19,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run19,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.95,4.624,1.3206,0.638,0.7573
+native_keepout,run19,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_keepout,run19,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_keepout,run2,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run2,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.0,7.14,1.7217,0.4202,0.5808
+native_keepout,run2,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,8.976,3.9812,0.0,0.0
+native_keepout,run2,goal2,,monitor_summary,G4,challenged,SPI-3,,1,0.25,1.8,13.872,5.1563,0.1298,0.1939
+native_keepout,run20,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run20,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.95,7.106,1.7143,0.4151,0.5833
+native_keepout,run20,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,9.044,4.0588,0.0,0.0
+native_keepout,run20,goal2,,monitor_summary,G4,challenged,SPI-3,,1,0.25,1.8,13.804,5.1688,0.1304,0.1935
+native_keepout,run21,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run21,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_keepout,run21,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,7.548,3.208,0.0,0.0
+native_keepout,run21,goal3,,monitor_summary,G4,challenged,SPI-3,,1,0.2293,1.4,16.762,4.6857,0.0835,0.2134
+native_keepout,run22,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run22,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.9,4.658,1.3874,0.6226,0.7208
+native_keepout,run22,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_keepout,run22,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_keepout,run23,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run23,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.0,7.038,1.7136,0.4263,0.5836
+native_keepout,run23,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,9.962,4.0049,0.0,0.0
+native_keepout,run23,goal2,,monitor_summary,G4,challenged,SPI-3,,1,0.25,2.05,14.076,5.1176,0.1456,0.1954
+native_keepout,run24,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run24,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_keepout,run24,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,7.378,3.1958,0.0,0.0
+native_keepout,run24,goal3,,monitor_summary,G4,challenged,SPI-3,,1,0.2293,1.45,16.762,4.9544,0.0865,0.2018
+native_keepout,run25,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run25,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.1,4.794,1.3926,0.6466,0.7181
+native_keepout,run25,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_keepout,run25,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_keepout,run26,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run26,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.05,7.174,1.7458,0.4251,0.5728
+native_keepout,run26,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,8.908,3.9468,0.0,0.0
+native_keepout,run26,goal2,,monitor_summary,G4,challenged,SPI-3,,1,0.25,1.8,13.668,5.2081,0.1317,0.192
+native_keepout,run27,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run27,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_keepout,run27,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,7.378,3.1465,0.0,0.0
+native_keepout,run27,goal3,,monitor_summary,G4,challenged,SPI-3,,1,0.2293,1.6,16.286,4.7433,0.0982,0.2108
+native_keepout,run28,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run28,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.85,4.624,1.3154,0.6163,0.7602
+native_keepout,run28,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_keepout,run28,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_keepout,run29,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run29,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.3,7.344,1.8344,0.4493,0.5451
+native_keepout,run29,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,9.69,3.9692,0.0,0.0
+native_keepout,run29,goal2,,monitor_summary,G4,challenged,SPI-3,,1,0.25,1.65,13.532,5.1557,0.1219,0.194
+native_keepout,run3,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run3,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_keepout,run3,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,6.732,3.1285,0.0,0.0
+native_keepout,run3,goal3,,monitor_summary,G4,challenged,SPI-3,,1,0.25,1.5,16.626,4.9113,0.0902,0.2036
+native_keepout,run30,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run30,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_keepout,run30,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,10.03,3.6381,0.0,0.0
+native_keepout,run30,goal3,,monitor_summary,G4,challenged,SPI-3,,1,0.2293,1.45,16.762,4.7757,0.0865,0.2094
+native_keepout,run4,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run4,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.0,4.624,1.3024,0.6488,0.7678
+native_keepout,run4,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_keepout,run4,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_keepout,run5,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run5,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.8,7.072,1.6928,0.3959,0.5907
+native_keepout,run5,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,9.146,3.9872,0.0,0.0
+native_keepout,run5,goal2,,monitor_summary,G4,challenged,SPI-3,,1,0.2293,1.6,13.6,5.1666,0.1176,0.1935
+native_keepout,run6,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run6,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_keepout,run6,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,6.834,3.1039,0.0,0.0
+native_keepout,run6,goal3,,monitor_summary,G4,challenged,SPI-3,,1,0.25,1.4,16.388,4.7756,0.0854,0.2094
+native_keepout,run7,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run7,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.0,4.794,1.37,0.6258,0.7299
+native_keepout,run7,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_keepout,run7,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_keepout,run8,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run8,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.46,3.2,7.446,1.7632,0.4298,0.5671
+native_keepout,run8,goal2,,monitor_summary,G3,supported,SPI-2,,0,,0,9.452,3.9581,0.0,0.0
+native_keepout,run8,goal2,,monitor_summary,G4,challenged,SPI-3,,1,0.25,1.65,13.668,5.0324,0.1207,0.1987
+native_keepout,run9,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_keepout,run9,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_keepout,run9,goal3,,monitor_summary,G3,supported,SPI-2,,0,,0,7.378,3.1812,0.0,0.0
+native_keepout,run9,goal3,,monitor_summary,G4,challenged,SPI-3,,1,0.2293,1.35,16.66,4.7419,0.081,0.2109
+native_speed,run1,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run1,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,4.5,6.256,1.2665,0.7193,0.7896
+native_speed,run1,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_speed,run1,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_speed,run10,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run10,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,4.75,6.29,1.2697,0.7552,0.7876
+native_speed,run10,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_speed,run10,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_speed,run11,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run11,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.2007,7.2,12.206,1.9711,0.5899,0.5073
+native_speed,run11,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.75,11.288,4.8028,0.3322,0.2082
+native_speed,run11,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.5,14.722,5.7316,0.1019,0.3489
+native_speed,run12,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run12,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_speed,run12,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.05,7.922,3.374,0.1325,0.2964
+native_speed,run12,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.5,16.354,4.7025,0.0917,0.4253
+native_speed,run13,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run13,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,4.5,6.324,1.3413,0.7116,0.7455
+native_speed,run13,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_speed,run13,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_speed,run14,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run14,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.2009,7.6,12.24,2.1212,0.6209,0.4714
+native_speed,run14,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.9,10.846,4.8348,0.3596,0.2068
+native_speed,run14,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.6,14.96,5.9011,0.107,0.3389
+native_speed,run15,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run15,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_speed,run15,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.05,10.506,3.7304,0.0999,0.2681
+native_speed,run15,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.55,15.742,4.6911,0.0985,0.4263
+native_speed,run16,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run16,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,4.45,6.358,1.2863,0.6999,0.7774
+native_speed,run16,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_speed,run16,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_speed,run17,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run17,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.2017,7.25,11.968,1.9193,0.6058,0.521
+native_speed,run17,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.85,12.002,4.8229,0.3208,0.2073
+native_speed,run17,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.55,14.62,5.738,0.106,0.3486
+native_speed,run18,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run18,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_speed,run18,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.15,10.744,3.7697,0.107,0.2653
+native_speed,run18,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.4,16.116,4.7211,0.0869,0.4236
+native_speed,run19,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run19,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,4.5,6.426,1.3005,0.7003,0.7689
+native_speed,run19,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_speed,run19,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_speed,run2,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run2,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.2006,6.65,11.458,1.9516,0.5804,0.5124
+native_speed,run2,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.95,10.812,4.7803,0.3653,0.2092
+native_speed,run2,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.55,14.654,5.7946,0.1058,0.3451
+native_speed,run20,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run20,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.2012,6.95,11.56,1.9369,0.6012,0.5163
+native_speed,run20,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.6,3.75,11.526,4.9412,0.3254,0.2024
+native_speed,run20,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.5,14.96,5.8522,0.1003,0.3418
+native_speed,run21,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run21,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_speed,run21,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.05,9.894,3.6807,0.1061,0.2717
+native_speed,run21,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.35,15.334,4.6592,0.088,0.4293
+native_speed,run22,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run22,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,4.4,6.358,1.2562,0.692,0.796
+native_speed,run22,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_speed,run22,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_speed,run23,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run23,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.2007,6.65,11.39,1.8934,0.5838,0.5281
+native_speed,run23,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.85,11.662,4.9348,0.3301,0.2026
+native_speed,run23,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.4,14.79,5.8133,0.0947,0.344
+native_speed,run24,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run24,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_speed,run24,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.15,0.85,8.398,3.4545,0.1012,0.2895
+native_speed,run24,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,16.15,4.7302,0.0898,0.4228
+native_speed,run25,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run25,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,4.45,6.256,1.2606,0.7113,0.7932
+native_speed,run25,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_speed,run25,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_speed,run26,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run26,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.2005,6.85,11.39,1.9344,0.6014,0.517
+native_speed,run26,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,4.1,11.05,4.8185,0.371,0.2075
+native_speed,run26,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.35,14.722,5.8071,0.0917,0.3444
+native_speed,run27,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run27,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_speed,run27,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.25,11.9,3.7721,0.105,0.2651
+native_speed,run27,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,15.266,4.6197,0.095,0.4329
+native_speed,run28,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run28,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,4.45,6.358,1.2726,0.6999,0.7858
+native_speed,run28,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_speed,run28,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_speed,run29,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run29,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.2017,7.05,12.104,2.0251,0.5825,0.4938
+native_speed,run29,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.9,10.744,4.7543,0.363,0.2103
+native_speed,run29,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.55,14.756,5.7244,0.105,0.3494
+native_speed,run3,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run3,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_speed,run3,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.0,7.616,3.3075,0.1313,0.3023
+native_speed,run3,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,15.674,4.7355,0.0925,0.4223
+native_speed,run30,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run30,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_speed,run30,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.15,10.982,3.7679,0.1047,0.2654
+native_speed,run30,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.4,15.912,4.6834,0.088,0.427
+native_speed,run4,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run4,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,4.6,6.392,1.2119,0.7196,0.8251
+native_speed,run4,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_speed,run4,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_speed,run5,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run5,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.2007,7.05,11.798,1.8883,0.5976,0.5296
+native_speed,run5,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.6,3.8,11.492,4.8057,0.3307,0.2081
+native_speed,run5,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,14.79,5.7922,0.098,0.3453
+native_speed,run6,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run6,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_speed,run6,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.15,0.95,11.696,3.7249,0.0812,0.2685
+native_speed,run6,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,15.572,4.6611,0.0931,0.4291
+native_speed,run7,goal1,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run7,goal1,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,4.6,6.324,1.3247,0.7274,0.7549
+native_speed,run7,goal1,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
+native_speed,run7,goal1,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
+native_speed,run8,goal2,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run8,goal2,,monitor_summary,G2,challenged,SPI-1,,1,0.2009,7.1,11.764,1.9392,0.6035,0.5157
+native_speed,run8,goal2,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.75,10.914,4.7568,0.3436,0.2102
+native_speed,run8,goal2,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.55,14.62,5.6941,0.106,0.3512
+native_speed,run9,goal3,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
+native_speed,run9,goal3,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
+native_speed,run9,goal3,,monitor_summary,G3,challenged,SPI-2,,1,0.2,1.1,9.248,3.6598,0.1189,0.2732
+native_speed,run9,goal3,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,16.32,4.7905,0.0888,0.4175

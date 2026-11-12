@@ -1,0 +1,24 @@
+safety_monitor_node:
+  ros__parameters:
+    use_sim_time: true
+
+    # Filled in per-run by safety_monitor.launch.py launch arguments.
+    config_id: "base"
+    run_id: "run0"
+    bags_dir: "bags"
+
+    # Single source of truth for all four configurations (correction 1):
+    # read directly from disk, never from /zone_truth.
+    zone_map_yaml: "" # set via launch argument
+
+    global_frame: "map"
+    robot_frame: "base_footprint"
+    pose_source: "tf"          # "tf" (default) or "gt" (not wired up yet, see README)
+    gt_pose_topic: "/ground_truth_pose"
+
+    tick_hz: 20.0
+    clear_after_s: 0.3          # shared debounce: gaps shorter than this merge into one event
+
+    # SPI thresholds and the SPI -> goal (claim) mapping live only in
+    # config/safety_case.yaml (single source of truth).
+    safety_case_yaml: ""        # set via launch argument

@@ -1,0 +1,19 @@
+digraph GSN {
+  rankdir=TB;
+  node [fontname="Helvetica", fontsize=10];
+  labelloc="t"; label="SC-ZONES -- external";
+  "G1" [shape=box, style=filled, fillcolor="#f4c7c3", label="G1: The robot navigates acceptably safely with respect to the restricted zones of the test environment.\n[H0]  S 0 / C 20 / N 10"];
+  "G1" -> "G2";
+  "G1" -> "G3";
+  "G1" -> "G4";
+  "G2" [shape=box, style=filled, fillcolor="#f4c7c3", label="G2: Zone speed limits are respected.\n[H1]  S 0 / C 20 / N 10"];
+  "G3" [shape=box, style=filled, fillcolor="#fff2b3", label="G3: Keepout zones are never entered.\n[H2]  S 20 / C 0 / N 10"];
+  "G4" [shape=box, style=filled, fillcolor="#fff2b3", label="G4: The robot keeps a safety margin to keepout zones.\n[H3]  S 20 / C 0 / N 10"];
+  "Sn_SPI-1" [shape=ellipse, label="SPI-1\nthr 0.2 m/s"];
+  "G2" -> "Sn_SPI-1";
+  "Sn_SPI-2" [shape=ellipse, label="SPI-2\nthr 0.0 m"];
+  "G3" -> "Sn_SPI-2";
+  "Sn_SPI-3" [shape=ellipse, label="SPI-3\nthr 0.3 m"];
+  "G4" -> "Sn_SPI-3";
+  "Sn_SPI-4" [shape=ellipse, label="SPI-4\nthr 0.02 m/s"];
+}
