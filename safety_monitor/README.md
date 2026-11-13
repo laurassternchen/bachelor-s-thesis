@@ -219,7 +219,7 @@ Reads every `bags/<config_id>/<run_id>/` directory and writes, next to
 
 | File | Content |
 |---|---|
-| `runs.csv` | one row per run: outcome, mission cost, per-SPI count / duration / peak / distance driven during events / exposure, in-zone speed cross-check, monitor processing time |
+| `runs.csv` | one row per run: outcome, mission cost (`time_to_goal_s` = active window: goal accepted to terminal result, or the motion window where no summary exists), `min_keepout_distance_m`, per-SPI count / duration / peak / distance driven during events / exposure, in-zone speed cross-check, monitor processing time |
 | `events.csv` | one row per `/spi_log` event, with corrected stamps and distance driven |
 | `claim_status.csv` | run × goal: `supported` / `challenged` / `no_evidence` plus count, peak, event duration ÷ exposure time, events per metre of exposure |
 | `claim_summary.csv` | per config (all nav goals, and per nav goal): how many runs support / challenge / give no evidence for each goal |
@@ -271,6 +271,45 @@ Pass `--zone-map-pgm`/`--zone-map-yaml` if the map moved.
 **Frozen results** (tag `analysis-freeze`): a copy of every output above, plus
 the replay outputs below, is versioned in `analysis/results/`. The bags themselves
 are not in the repository.
+
+## Figures (`analysis/plot_runs.py`)
+
+```bash
+python3 analysis/plot_runs.py --bags-dir bags --out-dir bags/analysis/figures
+```
+
+PDF + PNG, 16 cm wide, text ≥ 9 pt:
+
+| Figure | Content |
+|---|---|
+| `trajectories` | one panel per leg, zone map in grey, every run's map-frame pose (same window and pose computation as `analyze_runs.py`), one colour per config |
+| `speed_at_zone_entry_single` / `_grid` | goal1 only: `/odom` speed from 2 s before to 4 s after the first sample inside the speed zone; all runs thin, median thick; one panel or 2×2 |
+
+`CONFIG_COLORS` in `plot_runs.py` is the single definition of the per-config
+colours (base red, native_keepout sky blue, native_speed yellow, external
+violet). All pairs were checked for separation under protanopia, deuteranopia
+and tritanopia, so the set is colourblind-safe. Sky blue and yellow have low
+contrast on white, so every figure has a legend.
+
+## Thesis tables (`analysis/make_tables.py`)
+
+```bash
+python3 analysis/make_tables.py --analysis-dir bags/analysis   # after analyze_runs.py
+```
+
+Reads only the CSVs above and `safety_case.yaml`, and writes LaTeX (booktabs +
+tabularx at `\textwidth`; needs `xurl` for `\path`) and a CSV with the same
+content to `bags/analysis/tables/`. Every row has a `% source:` comment naming
+the CSV file and columns.
+
+| Table | Content |
+|---|---|
+| `spi_derivation` | per SPI: goal, hazard, signal, threshold, tolerance, exposure, leading / lagging |
+| `speed_limit_results` | G2 / SPI-1 per config, goal1 and goal2 legs, at SPI-1 tolerance 0.02 m/s (from the sensitivity run; `safety_case.yaml` keeps 0.0) |
+| `keepout_results` | G3 / SPI-2 and G4 / SPI-3 per config, for the legs within the G4 exposure radius (goal2, goal3) |
+
+Values are mean ± std over the runs of a leg; time to goal is over successful
+legs only, with the success count.
 
 ## Replaying bags through the monitor (`analysis/replay_bags.py`)
 

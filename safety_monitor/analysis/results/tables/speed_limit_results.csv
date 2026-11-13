@@ -1,0 +1,18 @@
+group,Metric,base,native_keepout,native_speed,external,source
+goal1: zone entry,Mean speed in zone [m/s],0.26 ± 0.01,0.26 ± 0.00,0.19 ± 0.00,0.18 ± 0.00,"spi1_overspeed.csv (tolerance_mps = 0.02, nav_goal = leg): speed_in_zone_mean_mps_mean, speed_in_zone_mean_mps_std"
+goal1: zone entry,Overspeed duration [s],2.95 ± 0.06,2.96 ± 0.07,0.53 ± 0.06,0.36 ± 0.03,"spi1_overspeed.csv (tolerance_mps = 0.02, nav_goal = leg): overspeed_duration_s_mean, overspeed_duration_s_std"
+goal1: zone entry,Overspeed distance [m],1.19 ± 0.03,1.18 ± 0.03,0.21 ± 0.03,0.13 ± 0.01,"spi1_overspeed.csv (tolerance_mps = 0.02, nav_goal = leg): overspeed_distance_m_mean, overspeed_distance_m_std"
+goal1: zone entry,Overspeed fraction [%],62.07 ± 2.04,62.92 ± 1.30,8.43 ± 0.93,5.46 ± 0.52,"spi1_overspeed.csv (tolerance_mps = 0.02, nav_goal = leg): overspeed_fraction_mean, overspeed_fraction_std (x 100)"
+goal1: zone entry,Runs with overspeed,10/10,10/10,10/10,10/10,"spi1_overspeed.csv (tolerance_mps = 0.02, nav_goal = leg): n_runs_overspeed, n_runs"
+goal1: zone entry,Time to goal [s],14.87 ± 0.37 (10/10),14.77 ± 0.27 (10/10),16.54 ± 0.33 (10/10),16.37 ± 0.24 (10/10),runs.csv: time_to_goal_s (rows with terminal_status = succeeded; window_source says monitor window or motion window)
+goal1: zone entry,G2 status (S/C/N),0/10/0,0/10/0,0/10/0,0/10/0,"tolerance_sensitivity.csv (tolerance = 0.02, scope = leg, goal_id = G2): supported, challenged, no_evidence"
+goal2: inside the zone and exit,Mean speed in zone [m/s],0.16 ± 0.01,0.18 ± 0.01,0.11 ± 0.00,0.12 ± 0.01,"spi1_overspeed.csv (tolerance_mps = 0.02, nav_goal = leg): speed_in_zone_mean_mps_mean, speed_in_zone_mean_mps_std"
+goal2: inside the zone and exit,Overspeed duration [s],3.42 ± 0.12,3.06 ± 0.13,0.00 ± 0.00,0.00 ± 0.00,"spi1_overspeed.csv (tolerance_mps = 0.02, nav_goal = leg): overspeed_duration_s_mean, overspeed_duration_s_std"
+goal2: inside the zone and exit,Overspeed distance [m],1.50 ± 0.05,1.33 ± 0.05,0.00 ± 0.00,0.00 ± 0.00,"spi1_overspeed.csv (tolerance_mps = 0.02, nav_goal = leg): overspeed_distance_m_mean, overspeed_distance_m_std"
+goal2: inside the zone and exit,Overspeed fraction [%],42.65 ± 1.49,42.92 ± 2.43,0.00 ± 0.00,0.00 ± 0.00,"spi1_overspeed.csv (tolerance_mps = 0.02, nav_goal = leg): overspeed_fraction_mean, overspeed_fraction_std (x 100)"
+goal2: inside the zone and exit,Runs with overspeed,10/10,10/10,0/10,0/10,"spi1_overspeed.csv (tolerance_mps = 0.02, nav_goal = leg): n_runs_overspeed, n_runs"
+goal2: inside the zone and exit,Time to goal [s],27.70 ± 0.24 (10/10),28.47 ± 0.20 (10/10),32.02 ± 0.26 (10/10),32.98 ± 0.55 (10/10),runs.csv: time_to_goal_s (rows with terminal_status = succeeded; window_source says monitor window or motion window)
+goal2: inside the zone and exit,G2 status (S/C/N),0/10/0,0/10/0,10/0/0,10/0/0,"tolerance_sensitivity.csv (tolerance = 0.02, scope = leg, goal_id = G2): supported, challenged, no_evidence"
+note,"Overspeed = speed above limit + tolerance (0.2 + 0.02 m/s) inside the speed zone, from /odom. Fraction = overspeed duration / time in the speed zone.",,,,,
+note,"G2 status: supported / challenged / no evidence, out of 10 runs. Time to goal: goal accepted to terminal result, successful legs only (successes/runs).",,,,,
+note,goal3 (keepout leg) never enters the speed zone and is omitted.,,,,,

@@ -241,12 +241,12 @@ def r(value, digits=4):
     return round(value, digits) if isinstance(value, float) else value
 
 
-def analyze_run(config_id, run_id, run_dir, ctx):
-    outcome = load_json(run_dir / 'outcome.json')
-    summary = load_json(run_dir / 'monitor_summary.json')
-    topic_volume, map_odom, odom, raw_events = read_bag(run_dir / 'bag')
-    samples = map_frame_samples(odom, map_odom)
+def active_window(summary, odom, samples):
+    """(summary, summary_mismatch, window, window_source) for one run.
 
+    The returned summary is {} if it belongs to a different goal (see
+    SUMMARY_MATCH_SLACK_S). Shared with plot_runs.py.
+    """
     summary_mismatch = False
     if summary.get('window_start_time') is not None and odom:
         summary_mismatch = (summary['window_start_time'] < odom[0][0] - SUMMARY_MATCH_SLACK_S
@@ -263,6 +263,15 @@ def analyze_run(config_id, run_id, run_dir, ctx):
         window_source = 'bag_motion'
     else:
         window, window_source = (0.0, 0.0), 'none'
+    return summary, summary_mismatch, window, window_source
+
+
+def analyze_run(config_id, run_id, run_dir, ctx):
+    outcome = load_json(run_dir / 'outcome.json')
+    topic_volume, map_odom, odom, raw_events = read_bag(run_dir / 'bag')
+    samples = map_frame_samples(odom, map_odom)
+    summary, summary_mismatch, window, window_source = active_window(
+        load_json(run_dir / 'monitor_summary.json'), odom, samples)
     win_samples = [s for s in samples if window[0] <= s[0] <= window[1]]
     xy = [(t, x, y) for t, x, y, _ in win_samples]
 
@@ -311,7 +320,9 @@ def analyze_run(config_id, run_id, run_dir, ctx):
         'pose_reset_distance_m': outcome.get('pose_reset_distance_m'),
         'terminal_status': outcome.get('terminal_status') or summary.get('terminal_status'),
         'error_msg': outcome.get('error_msg'),
-        'time_to_goal_s': summary.get('duration_s'),
+        # Goal accepted -> terminal result: the monitor's window, or the motion
+        # window where no usable summary exists (see window_source).
+        'time_to_goal_s': r(window[1] - window[0], 3) if window_source != 'none' else None,
         'path_length_m': summary.get('path_length_m'),
         'no_pose_time_s': summary.get('no_pose_time_s'),
         'summary_mismatch': summary_mismatch,
@@ -336,6 +347,10 @@ def analyze_run(config_id, run_id, run_dir, ctx):
         row[f'{key}_exposure_distance_m'] = r(exp['distance_m'], 3)
     zone_speed = zone_speed_stats(win_samples, ctx['zone_mask'])
     row.update(zone_speed)
+    # Map-based distance to the nearest keepout cell (0 inside keepout), as SPI-2/3 see it.
+    on_map = [(x, y) for _, x, y, _ in win_samples if ctx['zone_mask'].category_at(x, y) is not None]
+    row['min_keepout_distance_m'] = (r(min(ctx['zone_mask'].clearance_at(x, y) for x, y in on_map), 3)
+                                     if on_map else None)
     timing = summary.get('processing_time_ms') or {}
     for check in ('tick', 'spi4_callback'):
         stats = timing.get(check) or {}
@@ -427,8 +442,8 @@ def median_or_none(values):
 def mean_std(values):
     if not values:
         return None, None
-    return (r(statistics.fmean(values), 3),
-            r(statistics.stdev(values), 3) if len(values) > 1 else 0.0)
+    return (r(statistics.fmean(values), 4),
+            r(statistics.stdev(values), 4) if len(values) > 1 else 0.0)
 
 
 def spi1_overspeed_rows(details, threshold, tolerances):
