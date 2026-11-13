@@ -219,17 +219,16 @@ Reads every `bags/<config_id>/<run_id>/` directory and writes, next to
 
 | File | Content |
 |---|---|
-| `runs.csv` | one row per run: outcome, mission cost (`time_to_goal_s` = active window: goal accepted to terminal result, or the motion window where no summary exists), `min_keepout_distance_m`, per-SPI count / duration / peak / distance driven during events / exposure, in-zone speed cross-check, monitor processing time |
+| `runs.csv` | one row per run: outcome, mission cost (`path_length_bag_m` from the bag for every run, `stop_count` as defined in `safety_monitor/motion.py`, `time_to_goal_s` = active window: goal accepted to terminal result, or the motion window where no summary exists), `min_keepout_distance_m`, per-SPI count / duration / peak / distance driven during events / exposure, in-zone speed cross-check, monitor processing time |
 | `events.csv` | one row per `/spi_log` event, with corrected stamps and distance driven |
 | `claim_status.csv` | run × goal: `supported` / `challenged` / `no_evidence` plus count, peak, event duration ÷ exposure time, events per metre of exposure |
 | `claim_summary.csv` | per config (all nav goals, and per nav goal): how many runs support / challenge / give no evidence for each goal |
-| `filtering_stages.csv` | messages and bytes at (a) all recorded raw topics, (b) the topics the SPIs use, (c) `/spi_log` events, (d) claim-status rows, with reduction factors. `/scan` was not recorded in the existing bags (missing from `record_run.sh`'s topic list, since fixed), so stage (a) is a lower bound (`note` column) |
+| `filtering_stages.csv` | messages and bytes at (a) all recorded raw topics, (b) the topics the SPIs use, (c) `/spi_log` events, (d) claim-status rows, (e) claim summary per config (config × claim), with reduction factors. `/scan` was not recorded in the existing bags (missing from `record_run.sh`'s topic list, since fixed), so stage (a) is a lower bound (`note` column) |
 | `efficiency.csv` | monitor processing time per check cycle (mean, p95, max) per config; from `monitor_summary.json` of live runs, or written by `replay_bags.py` (`source` column) |
 | `spi1_overspeed.csv` | per config, leg and SPI-1 tolerance, mean ± std over runs that entered a speed zone: time (s) and distance (m) driven above limit + tolerance (main SPI-1 comparison), time and distance in the speed zone, speed in the zone (per-run mean / median / p95), `overspeed_fraction` = overspeed time ÷ time in zone. All from `/odom`, independent of the monitor's event fragmentation; peak speed as secondary columns |
 | `tolerance_sensitivity.csv` | claim-status counts per config / nav goal / goal with the SPI-1 tolerance at each value of `--spi1-tolerances` (default 0 and 0.02 m/s) |
 | `g3_challenged.csv`, `g4_challenged.csv` | one row per event challenging G3 / G4: nav goal, duration, penetration depth (G3) or clearance shortfall (G4), map-frame position at the peak; `within_grid_resolution` flags SPI-2 penetrations ≤ the map resolution (0.05 m). Status is not changed by the flag |
 | `source_check.csv` | per run: where its events and window came from (own bag `/spi_log` vs `monitor_summary.json`), event counts from both |
-| `gsn_<config>.dot` / `.svg` | GSN fragment, goals coloured by claim status (`.svg` only if Graphviz is installed; `--no-gsn` skips this) |
 
 Everything is clipped to the monitor's active-goal window, using message
 header stamps (sim time, the same clock as `monitor_summary.json`).
@@ -307,9 +306,39 @@ the CSV file and columns.
 | `spi_derivation` | per SPI: goal, hazard, signal, threshold, tolerance, exposure, leading / lagging |
 | `speed_limit_results` | G2 / SPI-1 per config, goal1 and goal2 legs, at SPI-1 tolerance 0.02 m/s (from the sensitivity run; `safety_case.yaml` keeps 0.0) |
 | `keepout_results` | G3 / SPI-2 and G4 / SPI-3 per config, for the legs within the G4 exposure radius (goal2, goal3) |
+| `mission_cost` | per leg: succeeded, time to goal, path length, stops, detour vs. base |
+| `claim_status` / `claim_status_per_leg` | S / C / N per claim and config over all 30 legs / per leg (SPI-1 tolerance 0.02 m/s) |
+| `filtering_stages` | stages (a)–(e) over all legs, decimal units, plus the monitor efficiency line from `efficiency.csv` |
 
 Values are mean ± std over the runs of a leg; time to goal is over successful
-legs only, with the success count.
+legs only, with the success count. The script checks that time to goal is
+identical in every table that shows it.
+
+**Stops** (`safety_monitor/motion.py`): a period with |v| < 0.01 m/s for more
+than 1 s with motion before and after it inside the window, so the initial
+wait for the first command and the final rest at the goal do not count.
+
+## GSN figures (`analysis/make_gsn.py`)
+
+```bash
+python3 analysis/make_gsn.py --analysis-dir bags/analysis   # after analyze_runs.py
+```
+
+Generated from `safety_case.yaml` with Graphviz into `bags/analysis/figures/`
+(`.dot`, vector `.pdf`, `.png`):
+
+- `gsn_structure`: structure only, standard GSN shapes (goals = rectangles,
+  strategy = parallelogram, solutions = circles, context = rounded rectangles,
+  hollow arrowheads for InContextOf). SPI-4 is dashed context (informational).
+  Short node texts come from the display-only `short` / `strategy` / `context`
+  fields in `safety_case.yaml`.
+- `gsn_<config>`: same layout, goals coloured by claim status with the
+  supported / challenged / no-evidence tally over all legs, at SPI-1 tolerance
+  0.02 m/s (the same counts as `claim_status`).
+
+The script reports each graph's natural width. It stays under 472 pt, so the
+10 pt node text is at least 9 pt when the figure is scaled to a 15 cm text
+width.
 
 ## Replaying bags through the monitor (`analysis/replay_bags.py`)
 

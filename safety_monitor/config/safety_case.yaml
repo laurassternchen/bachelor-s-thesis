@@ -17,33 +17,45 @@
 #                   whole_run     the whole active-goal window
 #   min_exposure  exposure needed before 0 events counts as support;
 #                 every listed key must be met (time_s and/or distance_m)
+#
+# Display only (GSN figure, analysis/make_gsn.py): goals.<id>.short,
+# goals.<id>.strategy (text of the strategy node below a goal with
+# supported_by), evidence.<SPI>.short, context.
 
 safety_case:
   id: SC-ZONES
   title: Zone-related safety of the TurtleBot3 navigation stack
+  context:
+    C1: "Operating environment: test world with one speed zone and one keepout zone (zone_map.pgm)"
 
   goals:
     G1:
       text: The robot navigates acceptably safely with respect to the restricted zones of the test environment.
+      short: Acceptably safe w.r.t. restricted zones
+      strategy: Argument over each zone-related hazard
       hazard_id: H0
       hazard: Unsafe interaction with a restricted zone.
       supported_by: [G2, G3, G4]
     G2:
       text: Zone speed limits are respected.
+      short: Zone speed limits respected
       hazard_id: H1
       hazard: The robot exceeds the permitted speed inside a speed zone.
     G3:
       text: Keepout zones are never entered.
+      short: Keepout never entered
       hazard_id: H2
       hazard: The robot enters a keepout zone.
     G4:
       text: The robot keeps a safety margin to keepout zones.
+      short: Margin to keepout kept
       hazard_id: H3
       hazard: The robot passes too close to a keepout zone (near-miss).
 
   evidence:
     SPI-1:
       goal_id: G2
+      short: overspeed in speed zone
       description: Speed above the zone limit while inside a speed zone.
       threshold: 0.2
       unit: m/s
@@ -52,6 +64,7 @@ safety_case:
       min_exposure: {distance_m: 0.5}
     SPI-2:
       goal_id: G3
+      short: keepout penetration
       description: Robot position inside a keepout cell (magnitude = penetration depth).
       threshold: 0.0
       unit: m
@@ -60,6 +73,7 @@ safety_case:
       min_exposure: {distance_m: 0.5}
     SPI-3:
       goal_id: G4
+      short: keepout margin
       description: Keepout margin (map-based distance to the nearest keepout cell) below the threshold (outside keepout only).
       threshold: 0.3
       unit: m
@@ -72,6 +86,7 @@ safety_case:
       min_exposure: {time_s: 1.0}
     SPI-4:
       goal_id: null
+      short: intervention
       description: Informational -- |cmd_vel_smoothed - cmd_vel| above the noise floor (intervention).
       threshold: 0.02
       unit: m/s

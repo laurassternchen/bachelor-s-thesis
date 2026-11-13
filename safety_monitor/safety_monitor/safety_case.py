@@ -1,8 +1,10 @@
 """Machine-readable safety argument (config/safety_case.yaml) and claim status.
 
 Pure Python, no ROS imports: shared by safety_monitor_node (thresholds and
-claim ids), analysis/analyze_runs.py (claim status, GSN export) and the tests.
+claim ids), analysis/analyze_runs.py (claim status), analysis/make_gsn.py and the tests.
 """
+import textwrap
+
 import yaml
 
 SUPPORTED = 'supported'
@@ -30,6 +32,7 @@ class SafetyCase:
         self.title = sc.get('title', '')
         self.goals = dict(sc.get('goals') or {})
         self.evidence = dict(sc.get('evidence') or {})
+        self.context = dict(sc.get('context') or {})
         self._validate()
 
     @classmethod
@@ -198,9 +201,12 @@ def summarize(rows, group_keys):
     return out
 
 
+
 # -- GSN export ----------------------------------------------------------------
 
 _FILL = {CHALLENGED: '#f4c7c3', SUPPORTED: '#cfe8cf', 'mixed': '#fff2b3', NO_EVIDENCE: '#e6e6e6'}
+FILL_LEGEND = ('fill: red = challenged in >= 1 run, green = supported in all runs, '
+               'yellow = supported / rest no evidence, grey = no evidence')
 
 
 def _overall(counts):
@@ -217,30 +223,106 @@ def _esc(text):
     return str(text).replace('\\', '\\\\').replace('"', '\\"')
 
 
-def to_dot(case, goal_counts, title=''):
-    """GSN fragment as Graphviz DOT; goals coloured by claim status.
+def _label(*lines, width=24):
+    """DOT label from lines, each escaped and wrapped at `width` characters."""
+    out = []
+    for line in lines:
+        out += textwrap.wrap(str(line), width) or ['']
+    return '\\n'.join(_esc(line) for line in out)
 
-    goal_counts: goal_id -> {'supported': n, 'challenged': n, 'no_evidence': n}
-    Fill: red = >= 1 run challenged, green = all runs supported,
-    yellow = some supported / rest no evidence, grey = no evidence at all.
+
+def _id_range(ids):
+    ids = list(ids)
+    return f'{ids[0]}–{ids[-1]}' if len(ids) > 2 else ', '.join(ids)
+
+
+def to_dot(case, goal_counts=None, title='', tolerances=None):
+    """GSN (Goal Structuring Notation) as Graphviz DOT.
+
+    Goals are rectangles, strategies parallelograms, solutions circles and
+    context rounded rectangles; SupportedBy edges have filled arrowheads,
+    InContextOf edges hollow ones. Evidence without a goal (informational)
+    is drawn as dashed context of the top goal.
+
+    goal_counts: None for the structure only, or goal_id -> {'supported': n,
+                 'challenged': n, 'no_evidence': n}: goals are then filled by
+                 overall status (see FILL_LEGEND) and show the tally.
+    tolerances:  spi_id -> tolerance to show instead of the safety case's own.
     """
-    lines = ['digraph GSN {', '  rankdir=TB;', '  node [fontname="Helvetica", fontsize=10];']
+    tolerances = tolerances or {}
+    lines = ['digraph GSN {',
+             '  rankdir=TB; nodesep=0.25; ranksep=0.35; margin=0;',
+             '  node [fontname="Helvetica", fontsize=10, margin="0.08,0.04"];',
+             '  edge [arrowsize=0.7];']
     if title:
-        lines.append(f'  labelloc="t"; label="{_esc(title)}";')
+        lines.append(f'  labelloc="t"; fontname="Helvetica"; fontsize=10; label="{_label(title, width=80)}";')
+
+    children = {c for gid in case.goals for c in case.children(gid)}
+    roots = [gid for gid in case.goals if gid not in children]
+    strategy_of = {}
     for gid, goal in case.goals.items():
-        counts = goal_counts.get(gid, {})
-        tally = ' / '.join(f'{s[0].upper()} {counts.get(s, 0)}' for s in STATUSES)
-        label = (_esc(f'{gid}: {goal.get("text", "")}') + '\\n'
-                 + _esc(f'[{goal.get("hazard_id", "")}]  {tally}'))
-        fill = _FILL[_overall(counts)]
-        lines.append(f'  "{gid}" [shape=box, style=filled, fillcolor="{fill}", label="{label}"];')
-        for child in case.children(gid):
-            lines.append(f'  "{gid}" -> "{child}";')
+        counts = (goal_counts or {}).get(gid)
+        text = [gid, goal.get('short') or goal.get('text', '')]
+        style = ''
+        if goal_counts is not None:
+            counts = counts or {}
+            text.append(' / '.join(f'{s[0].upper()} {counts.get(s, 0)}' for s in STATUSES))
+            style = f', style=filled, fillcolor="{_FILL[_overall(counts)]}"'
+        lines.append(f'  "{gid}" [shape=box{style}, label="{_label(*text)}"];')
+        kids = case.children(gid)
+        if kids:
+            sid = f'S{len(strategy_of) + 1}'
+            strategy_of[gid] = sid
+            hazards = _id_range(case.goals[k].get('hazard_id', '') for k in kids)
+            text = goal.get('strategy') or 'Argument over sub-goals'
+            lines.append(f'  "{sid}" [shape=parallelogram, margin="0,0", '
+                         f'label="{_label(sid, f"{text} {hazards}", width=18)}"];')
+            lines.append(f'  "{gid}" -> "{sid}";')
+            for kid in kids:
+                lines.append(f'  "{sid}" -> "{kid}";')
+
+    n = 0
+    informational = []
     for spi_id, ev in case.evidence.items():
-        sid = f'Sn_{spi_id}'
-        label = _esc(spi_id) + '\\n' + _esc(f'thr {ev["threshold"]} {ev.get("unit", "")}')
-        lines.append(f'  "{sid}" [shape=ellipse, label="{label}"];')
-        if ev.get('goal_id'):
-            lines.append(f'  "{ev["goal_id"]}" -> "{sid}";')
+        if not ev.get('goal_id'):
+            informational.append(spi_id)
+            continue
+        n += 1
+        lines.append(f'  "Sn{n}" [shape=circle, fixedsize=false, label="{_label(f"Sn{n}", spi_id)}"];')
+        lines.append(f'  "{ev["goal_id"]}" -> "Sn{n}";')
+
+    # Context: the safety case's own entries, then thresholds/tolerances (C<n+1>).
+    anchor = roots[0]
+    contexts = list((case.context or {}).items())
+    def with_unit(value, ev):
+        return f'{value:g} {ev["unit"]}' if ev.get('unit') else f'{value:g}'
+
+    thresholds = [f'{s}: {with_unit(float(ev["threshold"]), ev)} '
+                  f'(tol. {with_unit(float(tolerances.get(s, ev.get("tolerance", 0.0))), ev)})'
+                  for s, ev in case.evidence.items()]
+    contexts.append((f'C{len(contexts) + 1}', None))
+    # Layout: the case's own context left of the top goal, thresholds right of
+    # it, informational SPIs right of the strategy -- keeps every row about as
+    # wide as the sub-goal row.
+    strategy = strategy_of.get(anchor, anchor)
+    for cid, text in contexts:
+        if text is None:
+            label = '\\n'.join([_esc(cid), _esc('Threshold (tolerance)'), _esc('per SPI:')]
+                               + [_esc(t) for t in thresholds])
+            lines.append(f'  "{cid}" [shape=box, style=rounded, label="{label}"];')
+            lines.append(f'  "{anchor}" -> "{cid}" [arrowhead=empty];')
+        else:
+            lines.append(f'  "{cid}" [shape=box, style=rounded, label="{_label(cid, text, width=22)}"];')
+            # Drawn tail-first so the node lands left of the goal; the hollow
+            # InContextOf head still points at the context.
+            lines.append(f'  "{cid}" -> "{anchor}" [dir=back, arrowtail=empty];')
+        lines.append(f'  {{ rank=same; "{anchor}"; "{cid}"; }}')
+    for spi_id in informational:
+        ev = case.evidence[spi_id]
+        label = _label(f'{spi_id}: {ev.get("short", "")}', 'informational, supports no claim',
+                       width=16)
+        lines.append(f'  "{spi_id}" [shape=box, style="rounded,dashed", label="{label}"];')
+        lines.append(f'  "{strategy}" -> "{spi_id}" [arrowhead=empty, style=dashed];')
+        lines.append(f'  {{ rank=same; "{strategy}"; "{spi_id}"; }}')
     lines.append('}')
     return '\n'.join(lines) + '\n'

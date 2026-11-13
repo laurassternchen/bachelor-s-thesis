@@ -160,9 +160,21 @@ def test_shipped_safety_case_is_valid():
     assert case.goal_order()[-1] == 'G1'
 
 
-def test_dot_export_lists_goals_and_evidence():
-    dot = to_dot(make_case(), {'G2': {CHALLENGED: 1, SUPPORTED: 2, NO_EVIDENCE: 0}})
+def test_dot_export_is_gsn_structure():
+    dot = to_dot(make_case())
     assert dot.startswith('digraph GSN')
-    assert '"G1" -> "G2"' in dot
-    assert '"G2" -> "Sn_SPI-1"' in dot
+    assert '"G1" -> "S1"' in dot and '"S1" -> "G2"' in dot  # strategy between levels
+    assert '"S1" [shape=parallelogram' in dot
+    assert '"G2" -> "Sn1"' in dot and '"Sn1" [shape=circle' in dot
+    assert 'fillcolor' not in dot  # structure only: no status colours
+
+
+def test_dot_export_colours_goals_by_status():
+    dot = to_dot(make_case(), {'G2': {CHALLENGED: 1, SUPPORTED: 2, NO_EVIDENCE: 0}})
     assert '#f4c7c3' in dot  # G2 challenged in >= 1 run
+    assert 'S 2 / C 1 / N 0' in dot
+
+
+def test_dot_export_shows_tolerance_override():
+    dot = to_dot(make_case(), tolerances={'SPI-1': 0.02})
+    assert 'SPI-1: 0.2 (tol. 0.02)' in dot

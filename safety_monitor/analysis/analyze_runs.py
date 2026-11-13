@@ -30,9 +30,7 @@ import csv
 import io
 import json
 import math
-import shutil
 import statistics
-import subprocess
 import sys
 from pathlib import Path
 
@@ -44,7 +42,8 @@ PKG_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PKG_DIR))
 from safety_monitor.exposure import (MAX_GAP_S, MAX_PLAUSIBLE_SPEED_MPS,  # noqa: E402
                                       compute_exposure, distance_in_interval)
-from safety_monitor.safety_case import SafetyCase, assess_run, summarize, to_dot  # noqa: E402
+from safety_monitor.motion import count_stops  # noqa: E402
+from safety_monitor.safety_case import STATUSES, SafetyCase, assess_run, summarize  # noqa: E402
 from safety_monitor.zone_mask import SPEED, ZoneMask  # noqa: E402
 
 SPI_IDS = ('SPI-1', 'SPI-2', 'SPI-3', 'SPI-4')
@@ -70,6 +69,7 @@ STAGES = (
     ('b_spi_inputs', 'only the topics the SPIs use'),
     ('c_spi_log', '/spi_log events'),
     ('d_claim_status', 'claim-status rows'),
+    ('e_claim_summary', 'claim summary per configuration (config x claim)'),
 )
 
 # Runs whose monitor_summary.json carries this convention stamp events at the
@@ -324,6 +324,10 @@ def analyze_run(config_id, run_id, run_dir, ctx):
         # window where no usable summary exists (see window_source).
         'time_to_goal_s': r(window[1] - window[0], 3) if window_source != 'none' else None,
         'path_length_m': summary.get('path_length_m'),
+        # Same for every run (also without a summary): /odom + map->odom over the
+        # window, gaps and pose jumps excluded as for exposure.
+        'path_length_bag_m': r(distance_in_interval(xy, window[0], window[1]), 3),
+        'stop_count': count_stops(win_samples),
         'no_pose_time_s': summary.get('no_pose_time_s'),
         'summary_mismatch': summary_mismatch,
         'window_samples': len(win_samples),
@@ -382,12 +386,14 @@ def analyze_run(config_id, run_id, run_dir, ctx):
 
 # -- aggregation -------------------------------------------------------------
 
-def filtering_rows(stages_by_config):
+def filtering_rows(stages_by_config, config_stages):
+    """stages_by_config: per-run stages a-d; config_stages: config -> stages
+    that exist once per config (e)."""
     out = []
     totals = {}
     for config_id, stage_list in sorted(stages_by_config.items()):
         summed = {name: [0, 0] for name, _ in STAGES}
-        for stages in stage_list:
+        for stages in stage_list + [config_stages.get(config_id, {})]:
             for name, (msgs, size) in stages.items():
                 summed[name][0] += msgs
                 summed[name][1] += size
@@ -573,22 +579,6 @@ def write_csv(path, rows, fields=None):
     print(f'Wrote {len(rows)} row(s) to {path}')
 
 
-def write_gsn(out_dir, case, claim_rows):
-    configs = sorted({row['config_id'] for row in claim_rows})
-    have_dot = shutil.which('dot') is not None
-    for config_id in configs:
-        counts = {}
-        for row in summarize([c for c in claim_rows if c['config_id'] == config_id], ('goal_id',)):
-            counts[row['goal_id']] = row
-        dot_path = out_dir / f'gsn_{config_id}.dot'
-        dot_path.write_text(to_dot(case, counts, title=f'{case.id} -- {config_id}'))
-        if have_dot:
-            subprocess.run(['dot', '-Tsvg', str(dot_path), '-o', str(dot_path.with_suffix('.svg'))],
-                           check=False)
-    print(f'Wrote GSN fragments for {len(configs)} config(s) to {out_dir}'
-          + ('' if have_dot else ' (.dot only: Graphviz not installed)'))
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -603,7 +593,6 @@ def main():
     parser.add_argument('--zone-map-yaml', default=maps / 'zone_map.yaml', type=Path)
     parser.add_argument('--spi1-tolerances', nargs='+', type=float, default=[0.0, 0.02],
                         help='SPI-1 tolerances (m/s) for the sensitivity table')
-    parser.add_argument('--no-gsn', action='store_true', help='skip the GSN .dot export')
     args = parser.parse_args()
 
     with open(args.monitor_params) as f:
@@ -645,7 +634,12 @@ def main():
                + summarize(nav_goal_rows, ('config_id', 'nav_goal', 'goal_id')))
     summary.sort(key=lambda s: (s['config_id'], s['nav_goal'] != 'all', s['nav_goal'], s['goal_id']))
     write_csv(out_dir / 'claim_summary.csv', summary)
-    write_csv(out_dir / 'filtering_stages.csv', filtering_rows(stages_by_config))
+    summary_fields = ('config_id', 'nav_goal', 'goal_id', 'n_runs') + STATUSES
+    config_stages = {}
+    for config_id in stages_by_config:
+        rows = [s for s in summary if s['config_id'] == config_id and s['nav_goal'] == 'all']
+        config_stages[config_id] = {'e_claim_summary': (len(rows), csv_bytes(rows, summary_fields))}
+    write_csv(out_dir / 'filtering_stages.csv', filtering_rows(stages_by_config, config_stages))
     eff = efficiency_rows(timing_by_config)
     if any(e['n_cycles'] for e in eff):  # else keep any replay-derived efficiency.csv
         write_csv(out_dir / 'efficiency.csv', eff)
@@ -656,8 +650,6 @@ def main():
     write_csv(out_dir / 'g3_challenged.csv', challenged_rows(details, 'G3', 'SPI-2'))
     write_csv(out_dir / 'g4_challenged.csv', challenged_rows(details, 'G4', 'SPI-3'))
     write_csv(out_dir / 'source_check.csv', source_check_rows(details))
-    if not args.no_gsn:
-        write_gsn(out_dir, ctx['case'], claim_rows)
 
 
 if __name__ == '__main__':

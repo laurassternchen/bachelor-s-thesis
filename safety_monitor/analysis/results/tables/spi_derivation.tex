@@ -9,9 +9,9 @@
      & SPI-1 & SPI-2 & SPI-3 & SPI-4 \\
     \midrule
     % source: safety_case.yaml: evidence.<SPI>.goal_id, goals.<id>.text
-    Goal & G2: Zone speed limits are respected. & G3: Keepout zones are never entered. & G4: The robot keeps a safety margin to keepout zones. & – (informational) \\
+    Goal & G2: Zone speed limits are respected. & G3: Keepout zones are never entered. & G4: The robot keeps a safety margin to keepout zones. & -- (informational) \\
     % source: safety_case.yaml: goals.<id>.hazard_id, goals.<id>.hazard
-    Hazard & H1: The robot exceeds the permitted speed inside a speed zone. & H2: The robot enters a keepout zone. & H3: The robot passes too close to a keepout zone (near-miss). & – \\
+    Hazard & H1: The robot exceeds the permitted speed inside a speed zone. & H2: The robot enters a keepout zone. & H3: The robot passes too close to a keepout zone (near-miss). & -- \\
     % source: safety_monitor_node.py (_on_odom, _current_position, _tick, _on_cmd_vel) and spis.py (SPI1Overspeed..SPI4Intervention.update)
     Signal & \path{/odom} forward speed (\path{twist.linear.x}); robot position from TF \path{map}$\to$\path{base_footprint} classified against \path{zone_map.pgm}; checked at 20 Hz & Robot position from TF \path{map}$\to$\path{base_footprint}; penetration depth into a keepout cell of \path{zone_map.pgm}; checked at 20 Hz & Robot position from TF \path{map}$\to$\path{base_footprint}; map-based distance to the nearest keepout cell of \path{zone_map.pgm}, outside keepout only (not \path{/scan}); checked at 20 Hz & $|$\path{/cmd_vel_smoothed} $-$ \path{/cmd_vel}$|$ (linear x); checked on every \path{/cmd_vel} message \\
     % source: safety_case.yaml: evidence.<SPI>.threshold, unit; comparison from spis.py

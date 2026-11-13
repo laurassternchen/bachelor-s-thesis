@@ -9,6 +9,10 @@ naming the CSV file and column(s) it comes from. Writes to --out-dir
   spi_derivation.{tex,csv}       SPI -> goal, hazard, signal, threshold, ...
   speed_limit_results.{tex,csv}  G2 / SPI-1 per config and leg
   keepout_results.{tex,csv}      G3 / SPI-2 and G4 / SPI-3 per config and leg
+  mission_cost.{tex,csv}         success, time to goal, path length, stops, detour
+  claim_status.{tex,csv}         S/C/N per claim and config over all legs
+  claim_status_per_leg.{tex,csv} the same per claim and leg (appendix)
+  filtering_stages.{tex,csv}     data volume per filtering stage (a)-(e)
 
 LaTeX preamble needs: booktabs, tabularx, xurl (for \\path).
 Values are mean ± std over the runs of a leg (2 decimals), counts n/10.
@@ -21,17 +25,28 @@ import argparse
 import csv
 import re
 import statistics
+import sys
 from pathlib import Path
 
 import yaml
 
 PKG_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PKG_DIR))
+from safety_monitor.motion import STOP_MIN_S, STOP_SPEED_MPS  # noqa: E402
 CONFIGS = ('base', 'native_keepout', 'native_speed', 'external')
 SPI1_TOLERANCE = 0.02  # m/s; safety_case.yaml keeps 0.0, see tolerance_sensitivity.csv
 SPEED_LEGS = (('goal1_zone_entry', 'goal1: zone entry'),
               ('goal2_zone_exit', 'goal2: inside the zone and exit'))
 GRID_RESOLUTION_M = 0.05
 SPI_IDS = ('SPI-1', 'SPI-2', 'SPI-3', 'SPI-4')
+ALL_LEGS = (('goal1_zone_entry', 'goal1: zone entry'),
+            ('goal2_zone_exit', 'goal2: inside the zone and exit'),
+            ('goal3_keepout', 'goal3: keepout'))
+CLAIMS = (('G2', 'G2 zone speed limits'), ('G3', 'G3 keepout never entered'),
+          ('G4', 'G4 margin to keepout'), ('G1', 'G1 (aggregated)'))
+G1_RULE = ('G1 is assessed per leg from its sub-goals G2–G4 (`combine` in '
+           '`safety_case.py`): challenged if any sub-goal is challenged; supported only if '
+           'all sub-goals are supported; otherwise no evidence.')
 
 
 # -- input --------------------------------------------------------------------
@@ -47,10 +62,14 @@ def num(value):
 
 # -- formatting -------------------------------------------------------------
 
+def fmt2(value):
+    return f'{round(value, 2) + 0.0:.2f}'  # + 0.0 turns -0.00 into 0.00
+
+
 def pm(mean, std, scale=1.0):
     if mean is None:
         return '–'
-    return f'{mean * scale:.2f} ± {(std or 0.0) * scale:.2f}'
+    return f'{fmt2(mean * scale)} ± {fmt2((std or 0.0) * scale)}'
 
 
 def pm_values(values):
@@ -58,7 +77,7 @@ def pm_values(values):
     if not values:
         return '–'
     if len(values) == 1:
-        return f'{values[0]:.2f}'
+        return fmt2(values[0])
     return pm(statistics.fmean(values), statistics.stdev(values))
 
 
@@ -76,7 +95,9 @@ def latex_cell(text):
             continue
         part = (part.replace('\\', r'\textbackslash{}').replace('&', r'\&')
                 .replace('%', r'\%').replace('_', r'\_').replace('#', r'\#'))
+        part = re.sub(r'10\^(\d+)', r'$10^{\1}$', part)
         part = (part.replace('±', r'$\pm$').replace('≤', r'$\leq$').replace('→', r'$\to$')
+                .replace('≈', r'$\approx$').replace('×', r'$\times$').replace('–', '--')
                 .replace('|', r'$|$').replace('−', r'$-$').replace('>', r'$>$')
                 .replace('<', r'$<$'))
         out.append(part)
@@ -133,7 +154,11 @@ class Table:
         if self.notes:
             lines.append(r'  \par\smallskip')
             lines.append(r'  \begin{minipage}{\textwidth}\scriptsize')
-            lines += ['    ' + latex_cell(n) + r'\par' for n in self.notes]
+            for note in self.notes:
+                text, source = note if isinstance(note, tuple) else (note, None)
+                if source:
+                    lines.append(f'    % source: {source}')
+                lines.append('    ' + latex_cell(text) + r'\par')
             lines.append(r'  \end{minipage}')
         lines.append(r'\end{table}')
         (out_dir / f'{self.name}.tex').write_text('\n'.join(lines) + '\n')
@@ -148,8 +173,9 @@ class Table:
                     continue
                 _, cells, source = item
                 writer.writerow([group] + [plain_cell(c) for c in cells] + [source])
-            for n in self.notes:
-                writer.writerow(['note', plain_cell(n)] + [''] * (ncol))
+            for note in self.notes:
+                text, source = note if isinstance(note, tuple) else (note, '')
+                writer.writerow(['note', plain_cell(text)] + [''] * (ncol - 1) + [source])
         print(f'Wrote {out_dir / self.name}.tex/.csv')
 
 
@@ -382,6 +408,184 @@ def keepout_results(runs, claim_summary, case):
     return table, legs
 
 
+# -- Table 5: mission cost ------------------------------------------------------
+
+def mission_cost(runs, stop_speed, stop_min_s):
+    table = Table(
+        'mission_cost',
+        'Mission cost per leg, mean ± std over successful legs. A stop is a period with '
+        f'|v| < {stop_speed:g} m/s for more than {stop_min_s:g} s with motion before and '
+        'after it, i.e. not the initial wait or the final rest at the goal.',
+        'tab:mission-cost',
+        config_header('Metric'), CONFIG_COLSPEC,
+        notes=[
+            'Path length: map-frame path from `/odom` and the `map`→`odom` transform over the '
+            'active window, gaps > 0.5 s and pose jumps > 2 m/s excluded, computed from the '
+            'bag for every run. Detour: path length relative to the mean base path length '
+            'on the same leg.',
+            'Time to goal: goal accepted to terminal result (for external run15, run16, run25 '
+            'and run26, which have no monitor summary, the motion window).',
+        ])
+
+    def legs(config, leg):
+        return [r for r in runs if r['config_id'] == config and r['nav_goal'] == leg]
+
+    def ok(rows):
+        return [r for r in rows if r['terminal_status'] == 'succeeded']
+
+    failed = [r for r in runs if r['terminal_status'] != 'succeeded']
+    table.notes.append(
+        'All 120 legs succeeded (terminal status SUCCEEDED, `GoalStatus` code 4).' if not failed
+        else 'Failed legs: ' + ', '.join(f"`{r['config_id']}` {r['run_id']} ({r['nav_goal']}): "
+                                          f"{r['terminal_status']}" for r in failed) + '.')
+    for leg, title in ALL_LEGS:
+        table.group(title)
+        rr = {c: legs(c, leg) for c in CONFIGS}
+        base_path = statistics.fmean(num(r['path_length_bag_m']) for r in ok(rr['base']))
+        table.row(['Succeeded'] + [f'{len(ok(rr[c]))}/{len(rr[c])}' for c in CONFIGS],
+                  'runs.csv: terminal_status = succeeded')
+        table.row(['Time to goal [s]'] + [time_to_goal(runs, c, leg) for c in CONFIGS],
+                  TIME_TO_GOAL_SOURCE)
+        table.row(['Path length [m]'] + [
+            pm_values([num(r['path_length_bag_m']) for r in ok(rr[c])]) for c in CONFIGS],
+            'runs.csv: path_length_bag_m (succeeded)')
+        table.row(['Stops'] + [
+            pm_values([num(r['stop_count']) for r in ok(rr[c])]) for c in CONFIGS],
+            'runs.csv: stop_count (succeeded)')
+        table.row(['Detour vs. base [%]'] + [
+            pm_values([(num(r['path_length_bag_m']) / base_path - 1.0) * 100.0
+                       for r in ok(rr[c])]) for c in CONFIGS],
+            'runs.csv: path_length_bag_m (succeeded) / mean base path_length_bag_m on the leg - 1')
+    return table
+
+
+# -- Table 6: claim status --------------------------------------------------------
+
+def claim_counts(sensitivity, config, scope, goal):
+    return next(r for r in sensitivity if r['config_id'] == config and r['scope'] == scope
+                and r['goal_id'] == goal and float(r['tolerance']) == SPI1_TOLERANCE)
+
+
+CLAIM_SOURCE = (f'tolerance_sensitivity.csv (tolerance = {SPI1_TOLERANCE}, scope = {{scope}}, '
+                'goal_id = {goal}): supported, challenged, no_evidence')
+
+
+def claim_status_table(sensitivity):
+    table = Table(
+        'claim_status',
+        'Claim status per configuration over all 30 legs (S / C / N = supported / '
+        f'challenged / no evidence), SPI-1 tolerance {SPI1_TOLERANCE} m/s.',
+        'tab:claim-status',
+        config_header('Claim'), CONFIG_COLSPEC,
+        notes=[G1_RULE,
+               'A sub-goal is supported only if its SPI has no event beyond threshold + '
+               'tolerance and the leg had enough exposure; no evidence = no event but too '
+               'little exposure (e.g. goal3 never enters the speed zone, goal1 never comes '
+               'within 1.5 m of keepout).'])
+    for goal, title in CLAIMS:
+        table.row([title] + [status(claim_counts(sensitivity, c, 'all', goal)) for c in CONFIGS],
+                  CLAIM_SOURCE.format(scope='all', goal=goal))
+    return table
+
+
+def claim_status_per_leg_table(sensitivity):
+    table = Table(
+        'claim_status_per_leg',
+        'Claim status per configuration and leg (S / C / N = supported / challenged / '
+        f'no evidence, out of 10), SPI-1 tolerance {SPI1_TOLERANCE} m/s.',
+        'tab:claim-status-per-leg',
+        config_header('Leg'), CONFIG_COLSPEC, notes=[G1_RULE])
+    for goal, title in CLAIMS:
+        table.group(title)
+        for leg, _ in ALL_LEGS:
+            table.row([f'`{leg}`'] + [status(claim_counts(sensitivity, c, leg, goal))
+                                      for c in CONFIGS],
+                      CLAIM_SOURCE.format(scope=leg, goal=goal))
+    return table
+
+
+# -- Table 7: filtering stages ----------------------------------------------------
+
+STAGE_LABELS = {
+    'a_raw': '(a) All recorded raw topics',
+    'b_spi_inputs': '(b) SPI input topics',
+    'c_spi_log': '(c) `/spi_log` events',
+    'd_claim_status': '(d) Claim-status rows (run × claim)',
+    'e_claim_summary': '(e) Claim summary per configuration (config × claim)',
+}
+
+
+def volume(n_bytes):
+    if n_bytes >= 1e6:
+        return f'{n_bytes / 1e6:.2f} MB'
+    if n_bytes >= 1e3:
+        return f'{n_bytes / 1e3:.2f} kB'
+    return f'{n_bytes:.0f} B'
+
+
+def factor(value):
+    if value is None:
+        return '–'
+    return f'{value:,.0f}×' if value >= 100 else f'{value:.2f}×'
+
+
+def filtering_stages_table(stages, efficiency):
+    rows = [r for r in stages if r['config_id'] == 'ALL']
+    ticks = [r for r in efficiency if r['check'] == 'tick']
+    n_cycles = sum(int(r['n_cycles']) for r in ticks)
+    mean_ms = sum(float(r['mean_ms']) * int(r['n_cycles']) for r in ticks) / n_cycles
+    p95_ms = max(float(r['p95_ms_worst_run']) for r in ticks)
+    max_ms = max(float(r['max_ms']) for r in ticks)
+    n_bags = sum(int(r['n_runs_with_timing']) for r in ticks)
+    table = Table(
+        'filtering_stages',
+        f'Filtering stages over all {rows[0]["n_runs"]} legs: from raw data to claim status.',
+        'tab:filtering-stages',
+        ['Stage', 'Messages / entries', 'Data volume', 'Reduction vs. previous stage',
+         'Reduction vs. raw (a)'],
+        r'@{}>{\raggedright\arraybackslash}X*{4}{>{\centering\arraybackslash}p{2.0cm}}@{}',
+        notes=[
+            '(1) `/scan` was not recorded, so (a) is a lower bound and the reduction factors '
+            'are conservative.',
+            '(2) `/spi_log` events are counted at the threshold without tolerance (the '
+            "monitor's online behaviour).",
+            '(3) (c) → (d) is not a volume reduction but a semantic step from events to claim '
+            'status: a row is written per run and claim even without events.',
+            'Data volume: serialized message size (a)–(c), CSV size (d)–(e); decimal units '
+            '(kB = 1000 B, MB = 10^6 B). Reduction factors refer to data volume.',
+            (f'Monitor efficiency (replay of {n_bags} bags, {n_cycles:,} check cycles at 20 Hz): '
+             f'processing time per check cycle mean {mean_ms:.2f} ms, p95 {p95_ms:.2f} ms '
+             f'(worst bag), max {max_ms:.2f} ms, i.e. at most {max_ms / 50 * 100:.0f} % of the '
+             '50 ms cycle.',
+             'efficiency.csv (check = tick): n_runs_with_timing, n_cycles, mean_ms '
+             '(cycle-weighted), p95_ms_worst_run (max), max_ms (max)'),
+        ])
+    for r in rows:
+        table.row([STAGE_LABELS[r['stage']], f"{int(r['messages']):,}", volume(int(r['bytes'])),
+                   factor(num(r['byte_reduction_vs_prev'])), factor(num(r['byte_reduction_vs_raw']))],
+                  'filtering_stages.csv (config_id = ALL, stage = ' + r['stage']
+                  + '): messages, bytes, byte_reduction_vs_prev, byte_reduction_vs_raw')
+    return table
+
+
+def check_time_to_goal(out_dir):
+    """Time to goal must be identical wherever it appears."""
+    values = {}
+    mismatches = []
+    for name in ('speed_limit_results', 'keepout_results', 'mission_cost'):
+        with open(out_dir / f'{name}.csv') as f:
+            for row in csv.DictReader(f):
+                if row['Metric'] != 'Time to goal [s]':
+                    continue
+                key = row['group'].split(':')[0]
+                for c in CONFIGS:
+                    prev = values.setdefault((key, c), (row[c], name))
+                    if prev[0] != row[c]:
+                        mismatches.append(f'{key}/{c}: {prev[1]} {prev[0]} vs {name} {row[c]}')
+    print('Time to goal identical across tables' if not mismatches
+          else 'TIME TO GOAL MISMATCH: ' + '; '.join(mismatches))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -402,6 +606,14 @@ def main():
     table, legs = keepout_results(runs, read_csv(args.analysis_dir / 'claim_summary.csv'), case)
     table.write(out_dir)
     print(f'Keepout table legs (within G4 exposure radius): {", ".join(legs)}')
+
+    mission_cost(runs, STOP_SPEED_MPS, STOP_MIN_S).write(out_dir)
+    sensitivity = read_csv(args.analysis_dir / 'tolerance_sensitivity.csv')
+    claim_status_table(sensitivity).write(out_dir)
+    claim_status_per_leg_table(sensitivity).write(out_dir)
+    filtering_stages_table(read_csv(args.analysis_dir / 'filtering_stages.csv'),
+                           read_csv(args.analysis_dir / 'efficiency.csv')).write(out_dir)
+    check_time_to_goal(out_dir)
 
 
 if __name__ == '__main__':
