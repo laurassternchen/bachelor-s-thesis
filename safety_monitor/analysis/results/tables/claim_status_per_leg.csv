@@ -10,5 +10,5 @@ G4 margin to keepout,goal2_zone_exit,0/10/0,0/10/0,0/10/0,10/0/0,"tolerance_sens
 G4 margin to keepout,goal3_keepout,0/10/0,0/10/0,0/10/0,10/0/0,"tolerance_sensitivity.csv (tolerance = 0.02, scope = goal3_keepout, goal_id = G4): supported, challenged, no_evidence"
 G1 (aggregated),goal1_zone_entry,0/10/0,0/10/0,0/10/0,0/10/0,"tolerance_sensitivity.csv (tolerance = 0.02, scope = goal1_zone_entry, goal_id = G1): supported, challenged, no_evidence"
 G1 (aggregated),goal2_zone_exit,0/10/0,0/10/0,0/10/0,10/0/0,"tolerance_sensitivity.csv (tolerance = 0.02, scope = goal2_zone_exit, goal_id = G1): supported, challenged, no_evidence"
-G1 (aggregated),goal3_keepout,0/10/0,0/10/0,0/10/0,0/0/10,"tolerance_sensitivity.csv (tolerance = 0.02, scope = goal3_keepout, goal_id = G1): supported, challenged, no_evidence"
-note,G1 is assessed per leg from its sub-goals G2–G4 (combine in safety_case.py): challenged if any sub-goal is challenged; supported only if all sub-goals are supported; otherwise no evidence.,,,,,
+G1 (aggregated),goal3_keepout,0/10/0,0/10/0,0/10/0,10/0/0,"tolerance_sensitivity.csv (tolerance = 0.02, scope = goal3_keepout, goal_id = G1): supported, challenged, no_evidence"
+note,G1 is assessed per leg from its sub-goals G2–G4 (combine in safety_case.py): challenged if any sub-goal is challenged; supported if none is challenged and at least one is supported; otherwise no evidence. A leg therefore supports G1 only with respect to the sub-goals it tests (see the per-leg table).,,,,,

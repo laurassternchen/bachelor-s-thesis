@@ -123,11 +123,16 @@ def evidence_status(event_count, exposure, min_exposure):
 
 
 def combine(statuses):
-    """Any challenged -> challenged; all supported -> supported; else no_evidence."""
+    """Any challenged -> challenged; none challenged and at least one supported
+    -> supported; else no_evidence.
+
+    A leg that does not exercise a sub-goal (no_evidence) neither helps nor
+    hurts: it supports the parent only with respect to the sub-goals it tests.
+    """
     statuses = list(statuses)
     if any(s == CHALLENGED for s in statuses):
         return CHALLENGED
-    if statuses and all(s == SUPPORTED for s in statuses):
+    if any(s == SUPPORTED for s in statuses):
         return SUPPORTED
     return NO_EVIDENCE
 

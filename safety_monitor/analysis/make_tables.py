@@ -34,7 +34,8 @@ PKG_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PKG_DIR))
 from safety_monitor.motion import STOP_MIN_S, STOP_SPEED_MPS  # noqa: E402
 CONFIGS = ('base', 'native_keepout', 'native_speed', 'external')
-SPI1_TOLERANCE = 0.02  # m/s; safety_case.yaml keeps 0.0, see tolerance_sensitivity.csv
+# m/s; set from safety_case.yaml in main() (evidence.SPI-1.tolerance).
+SPI1_TOLERANCE = None
 SPEED_LEGS = (('goal1_zone_entry', 'goal1: zone entry'),
               ('goal2_zone_exit', 'goal2: inside the zone and exit'))
 GRID_RESOLUTION_M = 0.05
@@ -45,8 +46,10 @@ ALL_LEGS = (('goal1_zone_entry', 'goal1: zone entry'),
 CLAIMS = (('G2', 'G2 zone speed limits'), ('G3', 'G3 keepout never entered'),
           ('G4', 'G4 margin to keepout'), ('G1', 'G1 (aggregated)'))
 G1_RULE = ('G1 is assessed per leg from its sub-goals G2–G4 (`combine` in '
-           '`safety_case.py`): challenged if any sub-goal is challenged; supported only if '
-           'all sub-goals are supported; otherwise no evidence.')
+           '`safety_case.py`): challenged if any sub-goal is challenged; supported if none '
+           'is challenged and at least one is supported; otherwise no evidence. A leg '
+           'therefore supports G1 only with respect to the sub-goals it tests (see the '
+           'per-leg table).')
 
 
 # -- input --------------------------------------------------------------------
@@ -113,8 +116,9 @@ def plain_cell(text):
 class Table:
     """Rows of plain-text cells, grouped, each with a source comment."""
 
-    def __init__(self, name, caption, label, header, colspec, notes=()):
+    def __init__(self, name, caption, label, header, colspec, notes=(), caption_source=None):
         self.name, self.caption, self.label = name, caption, label
+        self.caption_source = caption_source
         self.header, self.colspec, self.notes = header, colspec, list(notes)
         self.items = []  # ('group', title) or ('row', cells, source)
 
@@ -131,6 +135,7 @@ class Table:
             r'\begin{table}[htbp]',
             r'  \centering',
             r'  \footnotesize',
+            *([f'  % caption source: {self.caption_source}'] if self.caption_source else []),
             f'  \\caption{{{latex_cell(self.caption)}}}',
             f'  \\label{{{self.label}}}',
             f'  \\begin{{tabularx}}{{\\textwidth}}{{{self.colspec}}}',
@@ -243,8 +248,8 @@ def spi_derivation(case):
         notes=[
             'All SPIs are evaluated only between goal acceptance and the terminal result. '
             'Events closer than 0.3 s are merged (debounce).',
-            f'Tolerance is applied offline. `safety_case.yaml` keeps 0.0 for SPI-1; the results '
-            f'tables use {SPI1_TOLERANCE} m/s (sensitivity run, `tolerance_sensitivity.csv`).',
+            'Tolerance is applied offline: an event counts against its goal only if it exceeds '
+            'threshold + tolerance. `tolerance_sensitivity.csv` also gives SPI-1 at 0 m/s.',
         ])
 
     def goal_cell(spi):
@@ -261,7 +266,7 @@ def spi_derivation(case):
 
     def tolerance_cell(spi):
         ev = evidence[spi]
-        tol = SPI1_TOLERANCE if spi == 'SPI-1' else float(ev.get('tolerance', 0.0))
+        tol = float(ev.get('tolerance', 0.0))
         return f"{tol:g} {ev['unit']}" + ('' if ev.get('goal_id') else ' (not used)')
 
     table.row(['Goal'] + [goal_cell(s) for s in SPI_IDS],
@@ -272,8 +277,7 @@ def spi_derivation(case):
     table.row(['Threshold'] + [threshold_cell(s) for s in SPI_IDS],
               'safety_case.yaml: evidence.<SPI>.threshold, unit; comparison from spis.py')
     table.row(['Tolerance'] + [tolerance_cell(s) for s in SPI_IDS],
-              'safety_case.yaml: evidence.<SPI>.tolerance; SPI-1 overridden to '
-              f'{SPI1_TOLERANCE} (tolerance_sensitivity.csv)')
+              'safety_case.yaml: evidence.<SPI>.tolerance')
     table.row(['Exposure'] + [exposure_text(evidence[s]) for s in SPI_IDS],
               'safety_case.yaml: evidence.<SPI>.exposure, min_exposure')
     table.row(['Leading / lagging'] + [LEADING_LAGGING[s] for s in SPI_IDS],
@@ -411,13 +415,17 @@ def keepout_results(runs, claim_summary, case):
 # -- Table 5: mission cost ------------------------------------------------------
 
 def mission_cost(runs, stop_speed, stop_min_s):
+    stopped = [r for r in runs if int(r['stop_count']) > 0]
+    where = sorted({f"`{r['config_id']}` {r['nav_goal'].split('_')[0]}" for r in stopped})
     table = Table(
         'mission_cost',
-        'Mission cost per leg, mean ± std over successful legs. A stop is a period with '
-        f'|v| < {stop_speed:g} m/s for more than {stop_min_s:g} s with motion before and '
-        'after it, i.e. not the initial wait or the final rest at the goal.',
+        'Mission cost per leg, mean ± std over successful legs. Stops (|v| < '
+        f'{stop_speed:g} m/s for more than {stop_min_s:g} s with motion before and after) '
+        f'occurred in only {len(stopped)} of {len(runs)} legs'
+        + (f' ({", ".join(where)})' if where else '') + ' and are not listed.',
         'tab:mission-cost',
         config_header('Metric'), CONFIG_COLSPEC,
+        caption_source='runs.csv: stop_count > 0 (config_id, nav_goal)',
         notes=[
             'Path length: map-frame path from `/odom` and the `map`→`odom` transform over the '
             'active window, gaps > 0.5 s and pose jumps > 2 m/s excluded, computed from the '
@@ -449,9 +457,6 @@ def mission_cost(runs, stop_speed, stop_min_s):
         table.row(['Path length [m]'] + [
             pm_values([num(r['path_length_bag_m']) for r in ok(rr[c])]) for c in CONFIGS],
             'runs.csv: path_length_bag_m (succeeded)')
-        table.row(['Stops'] + [
-            pm_values([num(r['stop_count']) for r in ok(rr[c])]) for c in CONFIGS],
-            'runs.csv: stop_count (succeeded)')
         table.row(['Detour vs. base [%]'] + [
             pm_values([(num(r['path_length_bag_m']) / base_path - 1.0) * 100.0
                        for r in ok(rr[c])]) for c in CONFIGS],
@@ -466,7 +471,7 @@ def claim_counts(sensitivity, config, scope, goal):
                 and r['goal_id'] == goal and float(r['tolerance']) == SPI1_TOLERANCE)
 
 
-CLAIM_SOURCE = (f'tolerance_sensitivity.csv (tolerance = {SPI1_TOLERANCE}, scope = {{scope}}, '
+CLAIM_SOURCE = ('tolerance_sensitivity.csv (tolerance = {tol}, scope = {scope}, '
                 'goal_id = {goal}): supported, challenged, no_evidence')
 
 
@@ -484,7 +489,7 @@ def claim_status_table(sensitivity):
                'within 1.5 m of keepout).'])
     for goal, title in CLAIMS:
         table.row([title] + [status(claim_counts(sensitivity, c, 'all', goal)) for c in CONFIGS],
-                  CLAIM_SOURCE.format(scope='all', goal=goal))
+                  CLAIM_SOURCE.format(tol=SPI1_TOLERANCE, scope='all', goal=goal))
     return table
 
 
@@ -500,7 +505,7 @@ def claim_status_per_leg_table(sensitivity):
         for leg, _ in ALL_LEGS:
             table.row([f'`{leg}`'] + [status(claim_counts(sensitivity, c, leg, goal))
                                       for c in CONFIGS],
-                      CLAIM_SOURCE.format(scope=leg, goal=goal))
+                      CLAIM_SOURCE.format(tol=SPI1_TOLERANCE, scope=leg, goal=goal))
     return table
 
 
@@ -597,8 +602,10 @@ def main():
     out_dir = args.out_dir or args.analysis_dir / 'tables'
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    global SPI1_TOLERANCE
     with open(args.safety_case) as f:
         case = yaml.safe_load(f)['safety_case']
+    SPI1_TOLERANCE = float(case['evidence']['SPI-1'].get('tolerance', 0.0))
     runs = read_csv(args.analysis_dir / 'runs.csv')
     spi_derivation(case).write(out_dir)
     speed_limit_results(runs, read_csv(args.analysis_dir / 'spi1_overspeed.csv'),

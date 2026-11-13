@@ -120,30 +120,30 @@ base,run9,goal3_keepout,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
 base,run9,goal3_keepout,,monitor_summary,G3,challenged,SPI-2,,1,0.15,0.75,10.54,3.7145,0.0712,0.2692
 base,run9,goal3_keepout,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.5,16.66,4.708,0.09,0.4248
 external,run1,goal1_zone_entry,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run1,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,2,0.46,4.45,6.494,1.2558,0.6852,1.5926
+external,run1,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.35,6.494,1.2558,0.3619,0.7963
 external,run1,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 external,run1,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
 external,run10,goal1_zone_entry,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run10,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,6,0.46,1.75,6.494,1.2998,0.2695,4.6162
+external,run10,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,0.9,6.494,1.2998,0.1386,0.7694
 external,run10,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 external,run10,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
-external,run11,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run11,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,4,0.2,1.25,9.52,1.4893,0.1313,2.6858
+external,run11,goal2_zone_exit,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
+external,run11,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,9.52,1.4893,0.0,0.0
 external,run11,goal2_zone_exit,,monitor_summary,G3,supported,SPI-2,,0,,0,8.534,3.4027,0.0,0.0
 external,run11,goal2_zone_exit,,monitor_summary,G4,supported,SPI-3,,0,,0,12.512,4.5605,0.0,0.0
-external,run12,goal3_keepout,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run12,goal3_keepout,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
 external,run12,goal3_keepout,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
 external,run12,goal3_keepout,,monitor_summary,G3,supported,SPI-2,,0,,0,6.766,2.8774,0.0,0.0
 external,run12,goal3_keepout,,monitor_summary,G4,supported,SPI-3,,0,,0,18.598,5.2718,0.0,0.0
 external,run13,goal1_zone_entry,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run13,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,2,0.46,4.45,6.494,1.3123,0.6852,1.524
+external,run13,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,0.8,6.494,1.3123,0.1232,0.762
 external,run13,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 external,run13,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
-external,run14,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run14,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,1,0.2,5.9,10.234,1.5803,0.5765,0.6328
+external,run14,goal2_zone_exit,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
+external,run14,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,10.234,1.5803,0.0,0.0
 external,run14,goal2_zone_exit,,monitor_summary,G3,supported,SPI-2,,0,,0,8.5,3.3918,0.0,0.0
 external,run14,goal2_zone_exit,,monitor_summary,G4,supported,SPI-3,,0,,0,12.546,4.5434,0.0,0.0
-external,run15,goal3_keepout,,bag_motion,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run15,goal3_keepout,,bag_motion,G1,supported,,G2 G3 G4,0,,0,,,,
 external,run15,goal3_keepout,,bag_motion,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
 external,run15,goal3_keepout,,bag_motion,G3,supported,SPI-2,,0,,0,8.262,2.9499,0.0,0.0
 external,run15,goal3_keepout,,bag_motion,G4,supported,SPI-3,,0,,0,18.7,5.2792,0.0,0.0
@@ -151,91 +151,91 @@ external,run16,goal1_zone_entry,True,bag_motion,G1,challenged,,G2 G3 G4,0,,0,,,,
 external,run16,goal1_zone_entry,True,bag_motion,G2,challenged,SPI-1,,1,0.46,4.95,6.392,1.2688,0.7744,0.7881
 external,run16,goal1_zone_entry,True,bag_motion,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 external,run16,goal1_zone_entry,True,bag_motion,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
-external,run17,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run17,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,2,0.2,5.3,9.588,1.5675,0.5528,1.2759
+external,run17,goal2_zone_exit,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
+external,run17,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,9.588,1.5675,0.0,0.0
 external,run17,goal2_zone_exit,,monitor_summary,G3,supported,SPI-2,,0,,0,7.106,3.13,0.0,0.0
 external,run17,goal2_zone_exit,,monitor_summary,G4,supported,SPI-3,,0,,0,12.614,4.6713,0.0,0.0
-external,run18,goal3_keepout,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run18,goal3_keepout,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
 external,run18,goal3_keepout,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
 external,run18,goal3_keepout,,monitor_summary,G3,supported,SPI-2,,0,,0,8.534,3.1382,0.0,0.0
 external,run18,goal3_keepout,,monitor_summary,G4,supported,SPI-3,,0,,0,18.326,5.2081,0.0,0.0
 external,run19,goal1_zone_entry,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run19,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,2,0.46,4.75,6.698,1.3423,0.7092,1.4899
+external,run19,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,0.65,6.698,1.3423,0.097,0.745
 external,run19,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 external,run19,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
-external,run2,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run2,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,2,0.2,6.3,11.458,1.9099,0.5498,1.0472
+external,run2,goal2_zone_exit,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
+external,run2,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,11.458,1.9099,0.0,0.0
 external,run2,goal2_zone_exit,,monitor_summary,G3,supported,SPI-2,,0,,0,8.738,3.7977,0.0,0.0
 external,run2,goal2_zone_exit,,monitor_summary,G4,supported,SPI-3,,0,,0,16.082,6.1879,0.0,0.0
-external,run20,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run20,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,2,0.2,5.3,9.894,1.5689,0.5357,1.2748
+external,run20,goal2_zone_exit,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
+external,run20,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,9.894,1.5689,0.0,0.0
 external,run20,goal2_zone_exit,,monitor_summary,G3,supported,SPI-2,,0,,0,8.126,3.501,0.0,0.0
 external,run20,goal2_zone_exit,,monitor_summary,G4,supported,SPI-3,,0,,0,12.478,4.7228,0.0,0.0
-external,run21,goal3_keepout,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run21,goal3_keepout,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
 external,run21,goal3_keepout,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
 external,run21,goal3_keepout,,monitor_summary,G3,supported,SPI-2,,0,,0,6.63,2.7678,0.0,0.0
 external,run21,goal3_keepout,,monitor_summary,G4,supported,SPI-3,,0,,0,18.326,5.1703,0.0,0.0
 external,run22,goal1_zone_entry,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run22,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,3,0.46,3.6,6.494,1.2705,0.5544,2.3612
+external,run22,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,2.6,6.494,1.2705,0.4004,0.7871
 external,run22,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 external,run22,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
-external,run23,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run23,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,4,0.2,4.15,9.52,1.538,0.4359,2.6007
+external,run23,goal2_zone_exit,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
+external,run23,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,9.52,1.538,0.0,0.0
 external,run23,goal2_zone_exit,,monitor_summary,G3,supported,SPI-2,,0,,0,8.466,3.4176,0.0,0.0
 external,run23,goal2_zone_exit,,monitor_summary,G4,supported,SPI-3,,0,,0,12.614,4.5498,0.0,0.0
-external,run24,goal3_keepout,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run24,goal3_keepout,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
 external,run24,goal3_keepout,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
 external,run24,goal3_keepout,,monitor_summary,G3,supported,SPI-2,,0,,0,8.976,3.2345,0.0,0.0
 external,run24,goal3_keepout,,monitor_summary,G4,supported,SPI-3,,0,,0,18.258,5.3017,0.0,0.0
 external,run25,goal1_zone_entry,True,bag_motion,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run25,goal1_zone_entry,True,bag_motion,G2,challenged,SPI-1,,5,0.46,2.85,6.732,1.2693,0.4234,3.9391
+external,run25,goal1_zone_entry,True,bag_motion,G2,challenged,SPI-1,,1,0.46,1.0,6.732,1.2693,0.1485,0.7878
 external,run25,goal1_zone_entry,True,bag_motion,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 external,run25,goal1_zone_entry,True,bag_motion,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
-external,run26,goal2_zone_exit,,bag_motion,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run26,goal2_zone_exit,,bag_motion,G2,challenged,SPI-1,,4,0.2,4.2,9.418,1.4864,0.446,2.6911
+external,run26,goal2_zone_exit,,bag_motion,G1,supported,,G2 G3 G4,0,,0,,,,
+external,run26,goal2_zone_exit,,bag_motion,G2,supported,SPI-1,,0,,0,9.418,1.4864,0.0,0.0
 external,run26,goal2_zone_exit,,bag_motion,G3,supported,SPI-2,,0,,0,7.99,3.3763,0.0,0.0
 external,run26,goal2_zone_exit,,bag_motion,G4,supported,SPI-3,,0,,0,12.614,4.5255,0.0,0.0
-external,run27,goal3_keepout,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run27,goal3_keepout,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
 external,run27,goal3_keepout,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
 external,run27,goal3_keepout,,monitor_summary,G3,supported,SPI-2,,0,,0,6.868,2.909,0.0,0.0
 external,run27,goal3_keepout,,monitor_summary,G4,supported,SPI-3,,0,,0,18.054,5.248,0.0,0.0
 external,run28,goal1_zone_entry,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run28,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,3,0.46,4.5,7.004,1.422,0.6425,2.1097
+external,run28,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,1.85,7.004,1.422,0.2641,0.7032
 external,run28,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 external,run28,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
-external,run29,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run29,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,5,0.2,3.95,10.064,1.6455,0.3925,3.0386
+external,run29,goal2_zone_exit,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
+external,run29,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,10.064,1.6455,0.0,0.0
 external,run29,goal2_zone_exit,,monitor_summary,G3,supported,SPI-2,,0,,0,7.412,3.3186,0.0,0.0
 external,run29,goal2_zone_exit,,monitor_summary,G4,supported,SPI-3,,0,,0,12.512,4.6345,0.0,0.0
-external,run3,goal3_keepout,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run3,goal3_keepout,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
 external,run3,goal3_keepout,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
 external,run3,goal3_keepout,,monitor_summary,G3,supported,SPI-2,,0,,0,8.024,2.9628,0.0,0.0
 external,run3,goal3_keepout,,monitor_summary,G4,supported,SPI-3,,0,,0,18.428,5.2366,0.0,0.0
-external,run30,goal3_keepout,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run30,goal3_keepout,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
 external,run30,goal3_keepout,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
 external,run30,goal3_keepout,,monitor_summary,G3,supported,SPI-2,,0,,0,9.01,3.2495,0.0,0.0
 external,run30,goal3_keepout,,monitor_summary,G4,supported,SPI-3,,0,,0,18.496,5.2954,0.0,0.0
 external,run4,goal1_zone_entry,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run4,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,7,0.46,2.0,6.63,1.2701,0.3017,5.5116
+external,run4,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,0.55,6.63,1.2701,0.083,0.7874
 external,run4,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 external,run4,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
-external,run5,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run5,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,6,0.2,1.45,9.554,1.5875,0.1518,3.7796
+external,run5,goal2_zone_exit,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
+external,run5,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,9.554,1.5875,0.0,0.0
 external,run5,goal2_zone_exit,,monitor_summary,G3,supported,SPI-2,,0,,0,7.208,3.2216,0.0,0.0
 external,run5,goal2_zone_exit,,monitor_summary,G4,supported,SPI-3,,0,,0,12.376,4.5183,0.0,0.0
-external,run6,goal3_keepout,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run6,goal3_keepout,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
 external,run6,goal3_keepout,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
 external,run6,goal3_keepout,,monitor_summary,G3,supported,SPI-2,,0,,0,6.902,2.8512,0.0,0.0
 external,run6,goal3_keepout,,monitor_summary,G4,supported,SPI-3,,0,,0,18.462,5.3129,0.0,0.0
 external,run7,goal1_zone_entry,True,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run7,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,6,0.46,1.65,6.63,1.2914,0.2489,4.6461
+external,run7,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,0.46,0.7,6.63,1.2914,0.1056,0.7744
 external,run7,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 external,run7,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
-external,run8,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-external,run8,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,9,0.2,0.8,9.792,1.5385,0.0817,5.8497
+external,run8,goal2_zone_exit,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
+external,run8,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,9.792,1.5385,0.0,0.0
 external,run8,goal2_zone_exit,,monitor_summary,G3,supported,SPI-2,,0,,0,8.262,3.3818,0.0,0.0
 external,run8,goal2_zone_exit,,monitor_summary,G4,supported,SPI-3,,0,,0,12.614,4.5505,0.0,0.0
-external,run9,goal3_keepout,,monitor_summary,G1,no_evidence,,G2 G3 G4,0,,0,,,,
+external,run9,goal3_keepout,,monitor_summary,G1,supported,,G2 G3 G4,0,,0,,,,
 external,run9,goal3_keepout,,monitor_summary,G2,no_evidence,SPI-1,,0,,0,0.0,0.0,,
 external,run9,goal3_keepout,,monitor_summary,G3,supported,SPI-2,,0,,0,8.466,3.1148,0.0,0.0
 external,run9,goal3_keepout,,monitor_summary,G4,supported,SPI-3,,0,,0,18.224,5.2787,0.0,0.0
@@ -368,7 +368,7 @@ native_speed,run10,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,
 native_speed,run10,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 native_speed,run10,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
 native_speed,run11,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-native_speed,run11,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,1,0.2007,7.2,12.206,1.9711,0.5899,0.5073
+native_speed,run11,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,12.206,1.9711,0.0,0.0
 native_speed,run11,goal2_zone_exit,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.75,11.288,4.8028,0.3322,0.2082
 native_speed,run11,goal2_zone_exit,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.5,14.722,5.7316,0.1019,0.3489
 native_speed,run12,goal3_keepout,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
@@ -380,7 +380,7 @@ native_speed,run13,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,
 native_speed,run13,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 native_speed,run13,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
 native_speed,run14,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-native_speed,run14,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,1,0.2009,7.6,12.24,2.1212,0.6209,0.4714
+native_speed,run14,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,12.24,2.1212,0.0,0.0
 native_speed,run14,goal2_zone_exit,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.9,10.846,4.8348,0.3596,0.2068
 native_speed,run14,goal2_zone_exit,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.6,14.96,5.9011,0.107,0.3389
 native_speed,run15,goal3_keepout,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
@@ -392,7 +392,7 @@ native_speed,run16,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,
 native_speed,run16,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 native_speed,run16,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
 native_speed,run17,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-native_speed,run17,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,1,0.2017,7.25,11.968,1.9193,0.6058,0.521
+native_speed,run17,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,11.968,1.9193,0.0,0.0
 native_speed,run17,goal2_zone_exit,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.85,12.002,4.8229,0.3208,0.2073
 native_speed,run17,goal2_zone_exit,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.55,14.62,5.738,0.106,0.3486
 native_speed,run18,goal3_keepout,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
@@ -404,11 +404,11 @@ native_speed,run19,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,
 native_speed,run19,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 native_speed,run19,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
 native_speed,run2,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-native_speed,run2,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,1,0.2006,6.65,11.458,1.9516,0.5804,0.5124
+native_speed,run2,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,11.458,1.9516,0.0,0.0
 native_speed,run2,goal2_zone_exit,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.95,10.812,4.7803,0.3653,0.2092
 native_speed,run2,goal2_zone_exit,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.55,14.654,5.7946,0.1058,0.3451
 native_speed,run20,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-native_speed,run20,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,1,0.2012,6.95,11.56,1.9369,0.6012,0.5163
+native_speed,run20,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,11.56,1.9369,0.0,0.0
 native_speed,run20,goal2_zone_exit,,monitor_summary,G3,challenged,SPI-2,,1,0.6,3.75,11.526,4.9412,0.3254,0.2024
 native_speed,run20,goal2_zone_exit,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.5,14.96,5.8522,0.1003,0.3418
 native_speed,run21,goal3_keepout,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
@@ -420,7 +420,7 @@ native_speed,run22,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,
 native_speed,run22,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 native_speed,run22,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
 native_speed,run23,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-native_speed,run23,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,1,0.2007,6.65,11.39,1.8934,0.5838,0.5281
+native_speed,run23,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,11.39,1.8934,0.0,0.0
 native_speed,run23,goal2_zone_exit,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.85,11.662,4.9348,0.3301,0.2026
 native_speed,run23,goal2_zone_exit,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.4,14.79,5.8133,0.0947,0.344
 native_speed,run24,goal3_keepout,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
@@ -432,7 +432,7 @@ native_speed,run25,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,
 native_speed,run25,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 native_speed,run25,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
 native_speed,run26,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-native_speed,run26,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,1,0.2005,6.85,11.39,1.9344,0.6014,0.517
+native_speed,run26,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,11.39,1.9344,0.0,0.0
 native_speed,run26,goal2_zone_exit,,monitor_summary,G3,challenged,SPI-2,,1,0.65,4.1,11.05,4.8185,0.371,0.2075
 native_speed,run26,goal2_zone_exit,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.35,14.722,5.8071,0.0917,0.3444
 native_speed,run27,goal3_keepout,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
@@ -444,7 +444,7 @@ native_speed,run28,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,
 native_speed,run28,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 native_speed,run28,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
 native_speed,run29,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-native_speed,run29,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,1,0.2017,7.05,12.104,2.0251,0.5825,0.4938
+native_speed,run29,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,12.104,2.0251,0.0,0.0
 native_speed,run29,goal2_zone_exit,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.9,10.744,4.7543,0.363,0.2103
 native_speed,run29,goal2_zone_exit,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.55,14.756,5.7244,0.105,0.3494
 native_speed,run3,goal3_keepout,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
@@ -460,7 +460,7 @@ native_speed,run4,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,0
 native_speed,run4,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 native_speed,run4,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
 native_speed,run5,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-native_speed,run5,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,1,0.2007,7.05,11.798,1.8883,0.5976,0.5296
+native_speed,run5,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,11.798,1.8883,0.0,0.0
 native_speed,run5,goal2_zone_exit,,monitor_summary,G3,challenged,SPI-2,,1,0.6,3.8,11.492,4.8057,0.3307,0.2081
 native_speed,run5,goal2_zone_exit,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.45,14.79,5.7922,0.098,0.3453
 native_speed,run6,goal3_keepout,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
@@ -472,7 +472,7 @@ native_speed,run7,goal1_zone_entry,True,monitor_summary,G2,challenged,SPI-1,,1,0
 native_speed,run7,goal1_zone_entry,True,monitor_summary,G3,no_evidence,SPI-2,,0,,0,0.0,0.0,,
 native_speed,run7,goal1_zone_entry,True,monitor_summary,G4,no_evidence,SPI-3,,0,,0,0.0,0.0,,
 native_speed,run8,goal2_zone_exit,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,
-native_speed,run8,goal2_zone_exit,,monitor_summary,G2,challenged,SPI-1,,1,0.2009,7.1,11.764,1.9392,0.6035,0.5157
+native_speed,run8,goal2_zone_exit,,monitor_summary,G2,supported,SPI-1,,0,,0,11.764,1.9392,0.0,0.0
 native_speed,run8,goal2_zone_exit,,monitor_summary,G3,challenged,SPI-2,,1,0.65,3.75,10.914,4.7568,0.3436,0.2102
 native_speed,run8,goal2_zone_exit,,monitor_summary,G4,challenged,SPI-3,,2,0.25,1.55,14.62,5.6941,0.106,0.3512
 native_speed,run9,goal3_keepout,,monitor_summary,G1,challenged,,G2 G3 G4,0,,0,,,,

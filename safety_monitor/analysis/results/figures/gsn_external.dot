@@ -3,7 +3,7 @@ digraph GSN {
   node [fontname="Helvetica", fontsize=10, margin="0.08,0.04"];
   edge [arrowsize=0.7];
   labelloc="t"; fontname="Helvetica"; fontsize=10; label="SC-ZONES: external, 30 legs, SPI-1 tolerance 0.02 m/s (S / C / N = supported /\nchallenged / no evidence; fill: red = challenged in >= 1 run, green = supported\nin all runs, yellow = supported / rest no evidence, grey = no evidence)";
-  "G1" [shape=box, style=filled, fillcolor="#f4c7c3", label="G1\nAcceptably safe w.r.t.\nrestricted zones\nS 10 / C 10 / N 10"];
+  "G1" [shape=box, style=filled, fillcolor="#f4c7c3", label="G1\nAcceptably safe w.r.t.\nrestricted zones\nS 20 / C 10 / N 0"];
   "S1" [shape=parallelogram, margin="0,0", label="S1\nArgument over each\nzone-related\nhazard H1–H3"];
   "G1" -> "S1";
   "S1" -> "G2";

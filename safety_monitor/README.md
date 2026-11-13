@@ -243,8 +243,10 @@ use the same source. Segments longer than 0.5 s (gaps) or faster than 2 m/s
 - `supported`: zero events **and** exposure ≥ `min_exposure`
 - `no_evidence`: zero events but too little exposure to support the claim
 
-A goal with sub-goals (G1) is `challenged` if any child is, `supported` only
-if all children are, otherwise `no_evidence`. G4's exposure is the time spent
+A goal with sub-goals (G1) is `challenged` if any child is, `supported` if
+none is challenged and at least one is supported, otherwise `no_evidence`. A leg
+therefore supports G1 only with respect to the sub-goals it tests;
+`claim_status_per_leg` shows which ones. G4's exposure is the time spent
 within 1.5 m of a keepout cell (`within_m` in `safety_case.yaml`; map-based
 distance, the signal SPI-3 itself uses). 1.5 m exceeds `inflation_radius`
 (0.7 m) + `robot_radius` (0.22 m), so every run whose planner had to work
@@ -304,10 +306,10 @@ the CSV file and columns.
 | Table | Content |
 |---|---|
 | `spi_derivation` | per SPI: goal, hazard, signal, threshold, tolerance, exposure, leading / lagging |
-| `speed_limit_results` | G2 / SPI-1 per config, goal1 and goal2 legs, at SPI-1 tolerance 0.02 m/s (from the sensitivity run; `safety_case.yaml` keeps 0.0) |
+| `speed_limit_results` | G2 / SPI-1 per config, goal1 and goal2 legs, at the SPI-1 tolerance from `safety_case.yaml` (0.02 m/s) |
 | `keepout_results` | G3 / SPI-2 and G4 / SPI-3 per config, for the legs within the G4 exposure radius (goal2, goal3) |
-| `mission_cost` | per leg: succeeded, time to goal, path length, stops, detour vs. base |
-| `claim_status` / `claim_status_per_leg` | S / C / N per claim and config over all 30 legs / per leg (SPI-1 tolerance 0.02 m/s) |
+| `mission_cost` | per leg: succeeded, time to goal, path length, detour vs. base (stops only in the caption: they occur in 2 of 120 legs) |
+| `claim_status` / `claim_status_per_leg` | S / C / N per claim and config over all 30 legs / per leg |
 | `filtering_stages` | stages (a)–(e) over all legs, decimal units, plus the monitor efficiency line from `efficiency.csv` |
 
 Values are mean ± std over the runs of a leg; time to goal is over successful
@@ -333,8 +335,8 @@ Generated from `safety_case.yaml` with Graphviz into `bags/analysis/figures/`
   Short node texts come from the display-only `short` / `strategy` / `context`
   fields in `safety_case.yaml`.
 - `gsn_<config>`: same layout, goals coloured by claim status with the
-  supported / challenged / no-evidence tally over all legs, at SPI-1 tolerance
-  0.02 m/s (the same counts as `claim_status`).
+  supported / challenged / no-evidence tally over all legs, at the safety
+  case's tolerances (the same counts as `claim_status`).
 
 The script reports each graph's natural width. It stays under 472 pt, so the
 10 pt node text is at least 9 pt when the figure is scaled to a 15 cm text

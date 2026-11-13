@@ -2,6 +2,6 @@ group,Claim,base,native_keepout,native_speed,external,source
 ,G2 zone speed limits,0/20/10,0/20/10,10/10/10,10/10/10,"tolerance_sensitivity.csv (tolerance = 0.02, scope = all, goal_id = G2): supported, challenged, no_evidence"
 ,G3 keepout never entered,0/20/10,18/2/10,0/20/10,20/0/10,"tolerance_sensitivity.csv (tolerance = 0.02, scope = all, goal_id = G3): supported, challenged, no_evidence"
 ,G4 margin to keepout,0/20/10,0/20/10,0/20/10,20/0/10,"tolerance_sensitivity.csv (tolerance = 0.02, scope = all, goal_id = G4): supported, challenged, no_evidence"
-,G1 (aggregated),0/30/0,0/30/0,0/30/0,10/10/10,"tolerance_sensitivity.csv (tolerance = 0.02, scope = all, goal_id = G1): supported, challenged, no_evidence"
-note,G1 is assessed per leg from its sub-goals G2–G4 (combine in safety_case.py): challenged if any sub-goal is challenged; supported only if all sub-goals are supported; otherwise no evidence.,,,,,
+,G1 (aggregated),0/30/0,0/30/0,0/30/0,20/10/0,"tolerance_sensitivity.csv (tolerance = 0.02, scope = all, goal_id = G1): supported, challenged, no_evidence"
+note,G1 is assessed per leg from its sub-goals G2–G4 (combine in safety_case.py): challenged if any sub-goal is challenged; supported if none is challenged and at least one is supported; otherwise no evidence. A leg therefore supports G1 only with respect to the sub-goals it tests (see the per-leg table).,,,,,
 note,"A sub-goal is supported only if its SPI has no event beyond threshold + tolerance and the leg had enough exposure; no evidence = no event but too little exposure (e.g. goal3 never enters the speed zone, goal1 never comes within 1.5 m of keepout).",,,,,

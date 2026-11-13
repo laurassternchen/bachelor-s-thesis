@@ -9,8 +9,9 @@ Writes to --out-dir (default bags/analysis/figures/):
                                the supported / challenged / no-evidence tally
                                over all legs of that config (appendix)
 
-Claim counts come from tolerance_sensitivity.csv at --spi1-tolerance, the
-same source as the claim-status table (make_tables.py).
+Thresholds and tolerances come from the safety case; claim counts from
+tolerance_sensitivity.csv at the safety case's SPI-1 tolerance, the same
+source as the claim-status table (make_tables.py).
 
 Usage:
     python3 make_gsn.py --analysis-dir bags/analysis
@@ -49,26 +50,25 @@ def main():
     parser.add_argument('--out-dir', type=Path, help='default: <analysis-dir>/figures')
     parser.add_argument('--safety-case', default=PKG_DIR / 'config' / 'safety_case.yaml',
                         type=Path)
-    parser.add_argument('--spi1-tolerance', default=0.02, type=float)
     args = parser.parse_args()
     out_dir = args.out_dir or args.analysis_dir / 'figures'
     out_dir.mkdir(parents=True, exist_ok=True)
 
     case = SafetyCase.from_file(args.safety_case)
-    tolerances = {'SPI-1': args.spi1_tolerance}
-    figures = {'gsn_structure': to_dot(case, tolerances=tolerances)}
+    spi1_tolerance = case.tolerance('SPI-1')
+    figures = {'gsn_structure': to_dot(case)}
 
     with open(args.analysis_dir / 'tolerance_sensitivity.csv') as f:
         rows = [r for r in csv.DictReader(f) if r['scope'] == 'all'
-                and float(r['tolerance']) == args.spi1_tolerance]
+                and float(r['tolerance']) == spi1_tolerance]
     for config_id in sorted({r['config_id'] for r in rows}):
         counts = {r['goal_id']: {s: int(r[s]) for s in STATUSES}
                   for r in rows if r['config_id'] == config_id}
         n_legs = max(int(r['n_runs']) for r in rows if r['config_id'] == config_id)
         title = (f'{case.id}: {config_id}, {n_legs} legs, SPI-1 tolerance '
-                 f'{args.spi1_tolerance:g} m/s (S / C / N = supported / challenged / no '
+                 f'{spi1_tolerance:g} m/s (S / C / N = supported / challenged / no '
                  f'evidence; {FILL_LEGEND})')
-        figures[f'gsn_{config_id}'] = to_dot(case, counts, title=title, tolerances=tolerances)
+        figures[f'gsn_{config_id}'] = to_dot(case, counts, title=title)
 
     for name, dot in figures.items():
         dot_path = out_dir / f'{name}.dot'

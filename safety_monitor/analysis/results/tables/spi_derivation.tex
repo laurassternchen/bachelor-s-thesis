@@ -16,7 +16,7 @@
     Signal & \path{/odom} forward speed (\path{twist.linear.x}); robot position from TF \path{map}$\to$\path{base_footprint} classified against \path{zone_map.pgm}; checked at 20 Hz & Robot position from TF \path{map}$\to$\path{base_footprint}; penetration depth into a keepout cell of \path{zone_map.pgm}; checked at 20 Hz & Robot position from TF \path{map}$\to$\path{base_footprint}; map-based distance to the nearest keepout cell of \path{zone_map.pgm}, outside keepout only (not \path{/scan}); checked at 20 Hz & $|$\path{/cmd_vel_smoothed} $-$ \path{/cmd_vel}$|$ (linear x); checked on every \path{/cmd_vel} message \\
     % source: safety_case.yaml: evidence.<SPI>.threshold, unit; comparison from spis.py
     Threshold & $>$ 0.2 m/s & $>$ 0.0 m & $<$ 0.3 m & $>$ 0.02 m/s \\
-    % source: safety_case.yaml: evidence.<SPI>.tolerance; SPI-1 overridden to 0.02 (tolerance_sensitivity.csv)
+    % source: safety_case.yaml: evidence.<SPI>.tolerance
     Tolerance & 0.02 m/s & 0 m & 0 m & 0 m/s (not used) \\
     % source: safety_case.yaml: evidence.<SPI>.exposure, min_exposure
     Exposure & Inside a speed zone; min. 0.5 m driven for support & Within 1.0 m of a keepout cell (incl. inside); min. 0.5 m driven for support & Within 1.5 m of a keepout cell (incl. inside); min. 1.0 s for support & Whole goal window; not used for a claim \\
@@ -27,6 +27,6 @@
   \par\smallskip
   \begin{minipage}{\textwidth}\scriptsize
     All SPIs are evaluated only between goal acceptance and the terminal result. Events closer than 0.3 s are merged (debounce).\par
-    Tolerance is applied offline. \path{safety_case.yaml} keeps 0.0 for SPI-1; the results tables use 0.02 m/s (sensitivity run, \path{tolerance_sensitivity.csv}).\par
+    Tolerance is applied offline: an event counts against its goal only if it exceeds threshold + tolerance. \path{tolerance_sensitivity.csv} also gives SPI-1 at 0 m/s.\par
   \end{minipage}
 \end{table}

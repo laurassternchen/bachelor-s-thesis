@@ -67,7 +67,8 @@ def test_empty_min_exposure_is_always_met():
 def test_combine_rules():
     assert combine([SUPPORTED, CHALLENGED, NO_EVIDENCE]) == CHALLENGED
     assert combine([SUPPORTED, SUPPORTED]) == SUPPORTED
-    assert combine([SUPPORTED, NO_EVIDENCE]) == NO_EVIDENCE
+    assert combine([SUPPORTED, NO_EVIDENCE]) == SUPPORTED
+    assert combine([NO_EVIDENCE, NO_EVIDENCE]) == NO_EVIDENCE
     assert combine([]) == NO_EVIDENCE
 
 
@@ -78,12 +79,18 @@ def test_assess_run_all_supported():
     assert rows['G1']['status'] == SUPPORTED
 
 
-def test_parent_goal_inherits_no_evidence():
+def test_parent_supported_by_the_sub_goals_a_leg_tests():
     # e.g. a goal1 run: plenty of speed-zone exposure, never near keepout.
     exposure = {'SPI-1': ENOUGH['SPI-1'], 'SPI-2': {'time_s': 0.0, 'distance_m': 0.0}}
     rows = by_goal(assess_run(make_case(), {}, exposure))
     assert rows['G2']['status'] == SUPPORTED
     assert rows['G3']['status'] == NO_EVIDENCE
+    assert rows['G1']['status'] == SUPPORTED
+
+
+def test_parent_without_any_supported_sub_goal_has_no_evidence():
+    none = {'time_s': 0.0, 'distance_m': 0.0}
+    rows = by_goal(assess_run(make_case(), {}, {'SPI-1': none, 'SPI-2': none}))
     assert rows['G1']['status'] == NO_EVIDENCE
 
 

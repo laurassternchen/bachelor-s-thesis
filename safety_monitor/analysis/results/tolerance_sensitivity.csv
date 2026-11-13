@@ -31,8 +31,8 @@ SPI-1,0.0,base,goal3_keepout,G3,10,0,10,0
 SPI-1,0.02,base,goal3_keepout,G3,10,0,10,0
 SPI-1,0.0,base,goal3_keepout,G4,10,0,10,0
 SPI-1,0.02,base,goal3_keepout,G4,10,0,10,0
-SPI-1,0.0,external,all,G1,30,0,20,10
-SPI-1,0.02,external,all,G1,30,10,10,10
+SPI-1,0.0,external,all,G1,30,10,20,0
+SPI-1,0.02,external,all,G1,30,20,10,0
 SPI-1,0.0,external,all,G2,30,0,20,10
 SPI-1,0.02,external,all,G2,30,10,10,10
 SPI-1,0.0,external,all,G3,30,20,0,10
@@ -55,8 +55,8 @@ SPI-1,0.0,external,goal2_zone_exit,G3,10,10,0,0
 SPI-1,0.02,external,goal2_zone_exit,G3,10,10,0,0
 SPI-1,0.0,external,goal2_zone_exit,G4,10,10,0,0
 SPI-1,0.02,external,goal2_zone_exit,G4,10,10,0,0
-SPI-1,0.0,external,goal3_keepout,G1,10,0,0,10
-SPI-1,0.02,external,goal3_keepout,G1,10,0,0,10
+SPI-1,0.0,external,goal3_keepout,G1,10,10,0,0
+SPI-1,0.02,external,goal3_keepout,G1,10,10,0,0
 SPI-1,0.0,external,goal3_keepout,G2,10,0,0,10
 SPI-1,0.02,external,goal3_keepout,G2,10,0,0,10
 SPI-1,0.0,external,goal3_keepout,G3,10,10,0,0
