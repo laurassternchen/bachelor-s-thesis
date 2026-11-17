@@ -1,0 +1,9 @@
+config_id,check,n_runs_with_timing,n_cycles,mean_ms,p95_ms_median_over_runs,p95_ms_worst_run,max_ms,source
+base,tick,3,1167,0.2738,0.4371,0.445,1.4011,replay
+base,spi4_callback,3,1156,0.1186,0.21,0.2211,0.5013,replay
+external,tick,3,1385,0.2515,0.4095,0.4209,1.2323,replay
+external,spi4_callback,3,1379,0.1065,0.2126,0.2211,1.1895,replay
+native_keepout,tick,3,1196,0.2504,0.4146,0.4179,1.3453,replay
+native_keepout,spi4_callback,3,1192,0.1107,0.2345,0.2476,0.3667,replay
+native_speed,tick,3,1300,0.2643,0.3798,0.4336,1.51,replay
+native_speed,spi4_callback,3,1282,0.1082,0.1979,0.2118,0.4376,replay

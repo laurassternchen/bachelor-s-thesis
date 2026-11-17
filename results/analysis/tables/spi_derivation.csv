@@ -1,0 +1,10 @@
+group,,SPI-1,SPI-2,SPI-3,SPI-4,source
+,Goal,G2: Zone speed limits are respected.,G3: Keepout zones are never entered.,G4: The robot keeps a safety margin to keepout zones.,– (informational),"safety_case.yaml: evidence.<SPI>.goal_id, goals.<id>.text"
+,Hazard,H1: The robot exceeds the permitted speed inside a speed zone.,H2: The robot enters a keepout zone.,H3: The robot passes too close to a keepout zone (near-miss).,–,"safety_case.yaml: goals.<id>.hazard_id, goals.<id>.hazard"
+,Signal,/odom forward speed (twist.linear.x); robot position from TF map→base_footprint classified against zone_map.pgm; checked at 20 Hz,Robot position from TF map→base_footprint; penetration depth into a keepout cell of zone_map.pgm; checked at 20 Hz,"Robot position from TF map→base_footprint; map-based distance to the nearest keepout cell of zone_map.pgm, outside keepout only (not /scan); checked at 20 Hz",|/cmd_vel_smoothed − /cmd_vel| (linear x); checked on every /cmd_vel message,"safety_monitor_node.py (_on_odom, _current_position, _tick, _on_cmd_vel) and spis.py (SPI1Overspeed..SPI4Intervention.update)"
+,Threshold,> 0.2 m/s,> 0.0 m,< 0.3 m,> 0.02 m/s,"safety_case.yaml: evidence.<SPI>.threshold, unit; comparison from spis.py"
+,Tolerance,0.02 m/s,0 m,0 m,0 m/s (not used),safety_case.yaml: evidence.<SPI>.tolerance
+,Exposure,Inside a speed zone; min. 0.5 m driven for support,Within 1.0 m of a keepout cell (incl. inside); min. 0.5 m driven for support,Within 1.5 m of a keepout cell (incl. inside); min. 1.0 s for support,Whole goal window; not used for a claim,"safety_case.yaml: evidence.<SPI>.exposure, min_exposure"
+,Leading / lagging,Lagging,Lagging,Leading,Informational,"classification (SPI-1/2 measure the hazard itself, SPI-3 a precursor, SPI-4 has goal_id null)"
+note,All SPIs are evaluated only between goal acceptance and the terminal result. Events closer than 0.3 s are merged (debounce).,,,,,
+note,Tolerance is applied offline: an event counts against its goal only if it exceeds threshold + tolerance. tolerance_sensitivity.csv also gives SPI-1 at 0 m/s.,,,,,

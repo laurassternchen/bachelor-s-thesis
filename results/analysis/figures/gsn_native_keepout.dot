@@ -1,0 +1,30 @@
+digraph GSN {
+  rankdir=TB; nodesep=0.25; ranksep=0.35; margin=0;
+  node [fontname="Helvetica", fontsize=10, margin="0.08,0.04"];
+  edge [arrowsize=0.7];
+  labelloc="t"; fontname="Helvetica"; fontsize=10; label="SC-ZONES: native_keepout, 30 legs, SPI-1 tolerance 0.02 m/s (S / C / N =\nsupported / challenged / no evidence; fill: red = challenged in >= 1 run, green\n= supported in all runs, yellow = supported / rest no evidence, grey = no\nevidence)";
+  "G1" [shape=box, style=filled, fillcolor="#f4c7c3", label="G1\nAcceptably safe w.r.t.\nrestricted zones\nS 0 / C 30 / N 0"];
+  "S1" [shape=parallelogram, margin="0,0", label="S1\nArgument over each\nzone-related\nhazard H1–H3"];
+  "G1" -> "S1";
+  "S1" -> "G2";
+  "S1" -> "G3";
+  "S1" -> "G4";
+  "G2" [shape=box, style=filled, fillcolor="#f4c7c3", label="G2\nZone speed limits\nrespected\nS 0 / C 20 / N 10"];
+  "G3" [shape=box, style=filled, fillcolor="#f4c7c3", label="G3\nKeepout never entered\nS 18 / C 2 / N 10"];
+  "G4" [shape=box, style=filled, fillcolor="#f4c7c3", label="G4\nMargin to keepout kept\nS 0 / C 20 / N 10"];
+  "Sn1" [shape=circle, fixedsize=false, label="Sn1\nSPI-1"];
+  "G2" -> "Sn1";
+  "Sn2" [shape=circle, fixedsize=false, label="Sn2\nSPI-2"];
+  "G3" -> "Sn2";
+  "Sn3" [shape=circle, fixedsize=false, label="Sn3\nSPI-3"];
+  "G4" -> "Sn3";
+  "C1" [shape=box, style=rounded, label="C1\nOperating environment:\ntest world with one\nspeed zone and one\nkeepout zone\n(zone_map.pgm)"];
+  "C1" -> "G1" [dir=back, arrowtail=empty];
+  { rank=same; "G1"; "C1"; }
+  "C2" [shape=box, style=rounded, label="C2\nThreshold (tolerance)\nper SPI:\nSPI-1: 0.2 m/s (tol. 0.02 m/s)\nSPI-2: 0 m (tol. 0 m)\nSPI-3: 0.3 m (tol. 0 m)\nSPI-4: 0.02 m/s (tol. 0 m/s)"];
+  "G1" -> "C2" [arrowhead=empty];
+  { rank=same; "G1"; "C2"; }
+  "SPI-4" [shape=box, style="rounded,dashed", label="SPI-4:\nintervention\ninformational,\nsupports no\nclaim"];
+  "S1" -> "SPI-4" [arrowhead=empty, style=dashed];
+  { rank=same; "S1"; "SPI-4"; }
+}

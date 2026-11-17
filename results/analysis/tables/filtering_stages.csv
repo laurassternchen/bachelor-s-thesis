@@ -1,0 +1,11 @@
+group,Stage,Messages / entries,Data volume,Reduction vs. previous stage,Reduction vs. raw (a),source
+,(a) All recorded raw topics,"378,739",196.24 MB,–,1.00×,"filtering_stages.csv (config_id = ALL, stage = a_raw): messages, bytes, byte_reduction_vs_prev, byte_reduction_vs_raw"
+,(b) SPI input topics,"364,320",96.74 MB,2.03×,2.03×,"filtering_stages.csv (config_id = ALL, stage = b_spi_inputs): messages, bytes, byte_reduction_vs_prev, byte_reduction_vs_raw"
+,(c) /spi_log events,300,45.54 kB,"2,125×","4,310×","filtering_stages.csv (config_id = ALL, stage = c_spi_log): messages, bytes, byte_reduction_vs_prev, byte_reduction_vs_raw"
+,(d) Claim-status rows (run × claim),480,46.10 kB,0.99×,"4,257×","filtering_stages.csv (config_id = ALL, stage = d_claim_status): messages, bytes, byte_reduction_vs_prev, byte_reduction_vs_raw"
+,(e) Claim summary per configuration (config × claim),16,471 B,97.88×,"416,654×","filtering_stages.csv (config_id = ALL, stage = e_claim_summary): messages, bytes, byte_reduction_vs_prev, byte_reduction_vs_raw"
+note,"(1) /scan was not recorded, so (a) is a lower bound and the reduction factors are conservative.",,,,,
+note,(2) /spi_log events are counted at the threshold without tolerance (the monitor's online behaviour).,,,,,
+note,(3) (c) → (d) is not a volume reduction but a semantic step from events to claim status: a row is written per run and claim even without events.,,,,,
+note,"Data volume: serialized message size (a)–(c), CSV size (d)–(e); decimal units (kB = 1000 B, MB = 10^6 B). Reduction factors refer to data volume.",,,,,
+note,"Monitor efficiency (replay of 12 bags, 5,048 check cycles at 20 Hz): processing time per check cycle mean 0.26 ms, p95 0.45 ms (worst bag), max 1.51 ms, i.e. at most 3 % of the 50 ms cycle.",,,,,"efficiency.csv (check = tick): n_runs_with_timing, n_cycles, mean_ms (cycle-weighted), p95_ms_worst_run (max), max_ms (max)"

@@ -1,0 +1,16 @@
+group,Metric,base,native_keepout,native_speed,external,source
+goal1: zone entry,Succeeded,10/10,10/10,10/10,10/10,runs.csv: terminal_status = succeeded
+goal1: zone entry,Time to goal [s],14.87 ± 0.37 (10/10),14.77 ± 0.27 (10/10),16.54 ± 0.33 (10/10),16.37 ± 0.24 (10/10),runs.csv: time_to_goal_s (rows with terminal_status = succeeded; window_source says monitor window or motion window)
+goal1: zone entry,Path length [m],4.56 ± 0.09,4.56 ± 0.07,4.47 ± 0.07,4.49 ± 0.09,runs.csv: path_length_bag_m (succeeded)
+goal1: zone entry,Detour vs. base [%],0.00 ± 2.05,-0.18 ± 1.47,-1.99 ± 1.44,-1.59 ± 1.99,runs.csv: path_length_bag_m (succeeded) / mean base path_length_bag_m on the leg - 1
+goal2: inside the zone and exit,Succeeded,10/10,10/10,10/10,10/10,runs.csv: terminal_status = succeeded
+goal2: inside the zone and exit,Time to goal [s],27.70 ± 0.24 (10/10),28.47 ± 0.20 (10/10),32.02 ± 0.26 (10/10),32.98 ± 0.55 (10/10),runs.csv: time_to_goal_s (rows with terminal_status = succeeded; window_source says monitor window or motion window)
+goal2: inside the zone and exit,Path length [m],10.04 ± 0.12,10.33 ± 0.07,10.10 ± 0.11,10.95 ± 0.13,runs.csv: path_length_bag_m (succeeded)
+goal2: inside the zone and exit,Detour vs. base [%],0.00 ± 1.23,2.84 ± 0.74,0.54 ± 1.06,9.03 ± 1.32,runs.csv: path_length_bag_m (succeeded) / mean base path_length_bag_m on the leg - 1
+goal3: keepout,Succeeded,10/10,10/10,10/10,10/10,runs.csv: terminal_status = succeeded
+goal3: keepout,Time to goal [s],16.39 ± 0.17 (10/10),16.74 ± 0.14 (10/10),16.35 ± 0.16 (10/10),18.42 ± 0.19 (10/10),runs.csv: time_to_goal_s (rows with terminal_status = succeeded; window_source says monitor window or motion window)
+goal3: keepout,Path length [m],4.72 ± 0.05,4.79 ± 0.09,4.73 ± 0.04,5.26 ± 0.04,runs.csv: path_length_bag_m (succeeded)
+goal3: keepout,Detour vs. base [%],0.00 ± 1.14,1.42 ± 1.88,0.06 ± 0.86,11.33 ± 0.95,runs.csv: path_length_bag_m (succeeded) / mean base path_length_bag_m on the leg - 1
+note,"Path length: map-frame path from /odom and the map→odom transform over the active window, gaps > 0.5 s and pose jumps > 2 m/s excluded, computed from the bag for every run. Detour: path length relative to the mean base path length on the same leg.",,,,,
+note,"Time to goal: goal accepted to terminal result (for external run15, run16, run25 and run26, which have no monitor summary, the motion window).",,,,,
+note,"All 120 legs succeeded (terminal status SUCCEEDED, GoalStatus code 4).",,,,,
